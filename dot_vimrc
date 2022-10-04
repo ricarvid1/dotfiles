@@ -51,23 +51,6 @@ call plug#end()
 
 let g:AutoPairsShortcutToggle = '<C-P>'
 
-" ----- Vundle setup  ----------------------------------------------------
-filetype off                  " required
- 
-" set the runtime path to include Vundle and initialize Vundle
-" The directory should be changed in case you downloaded in case you download it somewhere else
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
- 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
- 
-" All the plugins to be installed are to be mentioned here
-" inside the vundle#begin and vundle#end
-
-call vundle#end()            " required
-filetype plugin indent on    " required
-
 " ----- Plugin-Specific Settings --------------------------------------
 " We need this for plugins like Syntastic and vim-gitgutter which put symbols"
 " in the sign column.
