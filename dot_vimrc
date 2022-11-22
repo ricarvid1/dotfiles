@@ -6,6 +6,8 @@ set nocompatible              " be iMproved, required
 set backspace=indent,eol,start
 set ruler " show the cursor position all the time"
 set number " line numbers
+" turn hybrid line numbers on
+set relativenumber
 set showcmd " display incomplete commands
 set incsearch " do incremental searching
 set hlsearch " highlighting of search matches
