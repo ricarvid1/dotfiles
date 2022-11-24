@@ -1,83 +1,117 @@
+" File: .vimrc" 
+" Author: David Sanchez <ricarvid_9319@hotmail.com>
+" 
+" How I configure Vim :D
+" 
+
 " Gotta be first
 set nocompatible              " be iMproved, required
 
-" --- General settings ---
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-set ruler " show the cursor position all the time"
-set number " line numbers
-" turn hybrid line numbers on
-set relativenumber
-set showcmd " display incomplete commands
-set incsearch " do incremental searching
-set hlsearch " highlighting of search matches
-
-" In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
-
 " ----- Vim Plug setup ----------------------------------------------------
 call plug#begin()
- 
-Plug 'tyru/open-browser.vim' " opens url in browser
-Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
-Plug 'https://github.com/preservim/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
-Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
-Plug 'sheerun/vim-polyglot' "Syntax autocomplete
-Plug 'scrooloose/syntastic' "Syntax checking hacks for vim
-Plug 'LunarWatcher/auto-pairs' " Auto pairs ()[]{}
-Plug 'maxboisvert/vim-simple-complete' " word completion
-" --------------- Vim colorschemes --------------- 
+" --------------- Making Vim look good --------------- 
 Plug 'morhetz/gruvbox'
 Plug 'flazz/vim-colorschemes' 
+"Status tabline
+Plug 'vim-airline/vim-airline' 
+"A collection of themes for vim-airline 
+Plug 'vim-airline/vim-airline-themes' 
 
-Plug 'vim-airline/vim-airline' "Status tabline
-Plug 'vim-airline/vim-airline-themes' "A collection of themes for vim-airline 
-Plug 'tpope/vim-commentary' "Commenting code
-Plug 'xolox/vim-misc' "Miscellaneous auto-load Vim scripts
-Plug 'xolox/vim-easytags' "Automatic tag file generation and syntax
-" highlighting of tags in vim 
-Plug 'majutsushi/tagbar' "Vim plugin that displays tags in a Window ordered
-Plug 'ctrlpvim/ctrlp.vim' "Fuzzy file, buffer, etc. finder
-Plug 'tpope/vim-fugitive' "Git wrapper
-Plug 'airblade/vim-gitgutter' "Shows git diff markers
-Plug 'raimondi/delimitmate' "Autocompletion quotes, parens, brackets
-Plug 'jez/vim-superman' "Read Unix man pages faster than a speeding bullet!
-Plug 'christoomey/vim-tmux-navigator' "tmux navigation
-
-" ----- Syntax plugins ------------------------------------------------
-" Plug 'jez/vim-c0'
-" Plug 'jez/vim-ispc'
+" --------------- Vim as a programmer's text editor --------------- 
+" tree directory
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+" -- Syntax plugins --
+" Deprecated: Plug 'scrooloose/syntastic' 
+" Syntax checking hacks for vim
+Plug 'dense-analysis/ale'
 Plug 'kchmck/vim-coffee-script'
+" Miscellaneous auto-load Vim scripts
+Plug 'xolox/vim-misc' 
+" Automatic tag file generation and syntax
+Plug 'xolox/vim-easytags' 
+" Vim plugin that displays tags in a Window ordered
+Plug 'majutsushi/tagbar' 
+" Fuzzy file, buffer, etc. finder
+Plug 'ctrlpvim/ctrlp.vim' 
+" Surrounding ysw)
+Plug 'tpope/vim-surround' 
+" For Commenting gcc & gc
+Plug 'tpope/vim-commentary' 
+" Syntax autocomplete
+Plug 'sheerun/vim-polyglot' 
+" Auto pairs ()[]{}
+Plug 'LunarWatcher/auto-pairs' 
+
+" --------- Working with Git -----------------------------------------
+" Git wrapper
+Plug 'tpope/vim-fugitive' 
+" Shows git diff markers
+Plug 'airblade/vim-gitgutter' 
+
+" --------- Other text editing features ------------------------------
+ " opens url in browser
+Plug 'tyru/open-browser.vim' 
+" word completion highlighting of tags in vim 
+Plug 'maxboisvert/vim-simple-complete' 
+" Autocompletion quotes, parens, brackets
+Plug 'raimondi/delimitmate' 
+" --------- man pages, tmux ------------------------------
+" Read Unix man pages faster than a sPEEDIng bullet!
+Plug 'jez/vim-superman' 
+" tmux navigation
+Plug 'christoomey/vim-tmux-navigator' 
 
 call plug#end()
 
-" --------------- Vim colorschemes --------------- 
-" gruvbox
-let g:gruvbox_contrast_dark="hard"
-autocmd vimenter * ++nested colorscheme gruvbox
-" Toggle this to "light" for light colorscheme
-:set bg=dark
-" Uncomment the next line if your terminal is not configured for solarized
-let g:solarized_termcolors=256
+" --- General settings ---
+"  Using <space> as leader
+nnoremap <SPACE> <Nop>
+let mapleader=" "
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+" show the cursor position all the time"
+set ruler 
+" line numbers
+set number 
+" turn hybrid line numbers on
+set relativenumber
+" display incomplete commands
+set showcmd 
+" do incremental searching
+set incsearch 
+" highlighting of search matches
+set hlsearch 
 
-
-let g:AutoPairsShortcutToggle = '<C-P>'
-
-" ----- Plugin-Specific Settings --------------------------------------
+" Enable mouse
+if has('mouse')
+  set mouse=a
+endif
 " We need this for plugins like Syntastic and vim-gitgutter which put symbols"
 " in the sign column.
 hi clear SignColumn
 
+" ----- Plugin-Specific Settings --------------------------------------
+
+" ---- Vim colorscheme settings ---- 
+" Toggle this to 'light' for light colorscheme
+:set bg=dark
+
+" Uncomment the next line if your terminal is not configured for solarized
+let g:solarized_termcolors=256
+
+" Set colorscheme
+let g:gruvbox_contrast_dark="hard"
+autocmd vimenter * ++nested colorscheme gruvbox
+
 " ----- bling/vim-airline settings -----
-" Always show statusbarset laststatus=2
+" Always show statusbar
+set laststatus=2
 
 " Fancy arrow symbols, requires a patched font
 " To install a patched font, run over to
 "     https://github.com/abertsch/Menlo-for-Powerline
-" download all the .ttf files, double-click on them and click "Install"
+" download all the .ttf files, double-click on them and click 'Install'
 " Finally, uncomment the next line
 let g:airline_powerline_fonts = 1
 
@@ -90,6 +124,14 @@ let g:airline#extensions#tabline#enabled = 1
 " Use the solarized theme for the Airline status bar
 let g:airline_theme='gruvbox'
 
+" ----- scrooloose/nerdtree -----
+nnoremap <C-t> :NERDTreeToggle<CR>
+
+" ----- jistr/vim-nerdtree-tabs -----
+" Open/close NERDTree Tabs with \t
+nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
+" To have NERDTree always open on startup
+let g:nerdtree_tabs_open_on_console_startup = 1
 
 " ----- scrooloose/syntastic settings -----
 let g:syntastic_error_symbol = '✘'
@@ -97,9 +139,12 @@ let g:syntastic_warning_symbol = "▲"
 augroup mySyntastic
     au!
       au FileType tex let b:syntastic_mode = "passive"
-    augroup END
+augroup END
+
 " ----- xolox/vim-easytags settings -----
-" Where to look for tags filesset tags=./tags;,~/.vimtags" Sensible defaults
+" Where to look for tags files
+set tags=./tags;,~/.vimtags
+" Sensible defaults
 let g:easytags_events = ['BufReadPost', 'BufWritePost']
 let g:easytags_async = 1
 let g:easytags_dynamic_files = 2
@@ -109,27 +154,24 @@ let g:easytags_suppress_ctags_warning = 1
 " ----- majutsushi/tagbar settings -----
 " Open/close tagbar with \b
 nmap <silent> <leader>b :TagbarToggle<CR>
-" Uncomment to open tagbar automatically whenever possible"autocmd BufEnter *
-" nested :call tagbar#autoopen(0)
+" Uncomment to open tagbar automatically whenever possible
+"autocmd BufEnter * nested :call tagbar#autoopen(0)
 
 " ----- airblade/vim-gitgutter settings -----
-" In vim-airline, only display "hunks" if the diff is non-zero
+" In vim-airline, only display 'hunks' if the diff is non-zero
 let g:airline#extensions#hunks#non_zero_only = 1
-"
-"" ----- Raimondi/delimitMate settings -----
-" let delimitMate_expand_cr = 1
-" augroup mydelimitMate
-"   au!
-"   au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
-"   au FileType tex let b:delimitMate_quotes = ""
-"   au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
-"   au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
-" augroup END"'"`"]
+
+" ----- Raimondi/delimitMate settings -----
+let delimitMate_expand_cr = 1
+augroup mydelimitMate
+  au!
+  au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
+  au FileType tex let b:delimitMate_quotes = ""
+  au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
+  au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
+augroup END
+
 " ----- jez/vim-superman settings -----
 " better man page support
 noremap K :SuperMan <cword><CR>
 
-" ----- nerdtree settings -----
-nnoremap <C-t> :NERDTreeToggle<CR>
-" ----- search current selection -----
-vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>'")  
