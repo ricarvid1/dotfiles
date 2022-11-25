@@ -54,8 +54,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tyru/open-browser.vim' 
 " word completion highlighting of tags in vim 
 Plug 'maxboisvert/vim-simple-complete' 
-" Autocompletion quotes, parens, brackets
-Plug 'raimondi/delimitmate' 
+
 " --------- man pages, tmux ------------------------------
 " Read Unix man pages faster than a sPEEDIng bullet!
 Plug 'jez/vim-superman' 
@@ -70,7 +69,7 @@ nnoremap <SPACE> <Nop>
 let mapleader=" "
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-" show the cursor position all the time"
+" show the cursor position all the time
 set ruler 
 " line numbers
 set number 
@@ -87,6 +86,7 @@ set hlsearch
 if has('mouse')
   set mouse=a
 endif
+
 " We need this for plugins like Syntastic and vim-gitgutter which put symbols"
 " in the sign column.
 hi clear SignColumn
@@ -128,10 +128,10 @@ let g:airline_theme='gruvbox'
 nnoremap <C-t> :NERDTreeToggle<CR>
 
 " ----- jistr/vim-nerdtree-tabs -----
-" Open/close NERDTree Tabs with \t
+" Open/close NERDTree Tabs with leader t
 nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
 " To have NERDTree always open on startup
-let g:nerdtree_tabs_open_on_console_startup = 1
+" let g:nerdtree_tabs_open_on_console_startup = 1
 
 " ----- scrooloose/syntastic settings -----
 let g:syntastic_error_symbol = '✘'
@@ -152,7 +152,7 @@ let g:easytags_resolve_links = 1
 let g:easytags_suppress_ctags_warning = 1
 
 " ----- majutsushi/tagbar settings -----
-" Open/close tagbar with \b
+" Open/close tagbar with leader b
 nmap <silent> <leader>b :TagbarToggle<CR>
 " Uncomment to open tagbar automatically whenever possible
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
@@ -161,17 +161,6 @@ nmap <silent> <leader>b :TagbarToggle<CR>
 " In vim-airline, only display 'hunks' if the diff is non-zero
 let g:airline#extensions#hunks#non_zero_only = 1
 
-" ----- Raimondi/delimitMate settings -----
-let delimitMate_expand_cr = 1
-augroup mydelimitMate
-  au!
-  au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
-  au FileType tex let b:delimitMate_quotes = ""
-  au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
-  au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
-augroup END
-
 " ----- jez/vim-superman settings -----
 " better man page support
 noremap K :SuperMan <cword><CR>
-
