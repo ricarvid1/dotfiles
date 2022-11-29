@@ -3,7 +3,7 @@
 Version=2.80.1
 Type=Application
 Terminal=false
-Exec=~/Programs/Mendeley/mendeley-reference-manager-2.80.1-x86_64.AppImage
+Exec=~/Programs/mendeley/mendeley-reference-manager-2.80.1-x86_64.AppImage
 Name=Mendeley
 Comment=Reference Manager
-Icon=/home/david/Programs/Mendeley/mendeley.png
+Icon=/home/david/Programs/mendeley/mendeley.png
