@@ -6,4 +6,4 @@ Terminal=false
 Exec=~/Programs/mendeley/mendeley-reference-manager-2.80.1-x86_64.AppImage
 Name=Mendeley
 Comment=Reference Manager
-Icon=/home/david/Programs/mendeley/mendeley.png
+Icon=~/Programs/mendeley/mendeley.png
