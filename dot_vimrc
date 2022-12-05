@@ -69,6 +69,8 @@ nnoremap <SPACE> <Nop>
 let mapleader=" "
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
+" set text width
+set textwidth=88
 " show the cursor position all the time
 set ruler 
 " line numbers
