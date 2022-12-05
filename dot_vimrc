@@ -127,7 +127,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='gruvbox'
 
 " ----- scrooloose/nerdtree -----
-nnoremap <C-t> :NERDTreeToggle<CR>
+" nnoremap <C-t> :NERDTreeToggle<CR>
 
 " ----- jistr/vim-nerdtree-tabs -----
 " Open/close NERDTree Tabs with leader t
