@@ -10,3 +10,7 @@ Host lu-ubuntu
 Host tqh
 	Hostname 192.168.1.132
 	User ricarvid
+
+Host test01-smart
+	Hostname 192.168.1.141
+	User jupyter-smartlight
