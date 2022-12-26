@@ -123,6 +123,10 @@ let g:airline#extensions#tabline#enabled = 1
 " Use the solarized theme for the Airline status bar
 let g:airline_theme='gruvbox'
 
+" ----- ale settings -----
+" Set this variable to 1 to fix files when you save them.
+let g:ale_fix_on_save = 1
+
 " ----- scrooloose/nerdtree -----
 nnoremap <leader>t :NERDTreeToggle<CR>
 
