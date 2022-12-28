@@ -122,10 +122,16 @@ let g:airline#extensions#tabline#enabled = 1
 "
 " Use the solarized theme for the Airline status bar
 let g:airline_theme='gruvbox'
+ 
+" Use the ale extension to show syntax errors
+let g:airline#extensions#ale#enabled = 1
 
-" ----- ale settings -----
+" ----- ale -----
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
+" Navigate errors
+nmap <silent> <leader>k <Plug>(ale_previous_wrap)
+nmap <silent> <leader>j <Plug>(ale_next_wrap)
 
 " ----- scrooloose/nerdtree -----
 nnoremap <leader>t :NERDTreeToggle<CR>
@@ -153,3 +159,4 @@ let g:airline#extensions#hunks#non_zero_only = 1
 " ----- jez/vim-superman settings -----
 " better man page support
 noremap K :SuperMan <cword><CR>
+
