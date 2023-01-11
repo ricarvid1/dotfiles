@@ -28,7 +28,7 @@ Plug 'xolox/vim-misc'
 " Automatic tag file generation and syntax
 Plug 'xolox/vim-easytags' 
 " Vim plugin that displays tags in a Window ordered
-Plug 'majutsushi/tagbar' 
+Plug 'preservim/tagbar' 
 " Fuzzy file, buffer, etc. finder
 Plug 'ctrlpvim/ctrlp.vim' 
 " Surrounding ysw)
@@ -58,6 +58,9 @@ Plug 'jez/vim-superman'
 " tmux navigation
 Plug 'christoomey/vim-tmux-navigator' 
 
+" --------- pretty icons ------------------------------
+"  Add devicons
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " --- General settings ---
@@ -80,6 +83,10 @@ set showcmd
 set incsearch 
 " highlighting of search matches
 set hlsearch 
+" syntax highlighting
+syntax on
+" set encoding for icons
+set encoding=UTF-8
 
 " Enable mouse
 if has('mouse')
@@ -89,6 +96,8 @@ endif
 " We need this for plugins like Syntastic and vim-gitgutter which put symbols"
 " in the sign column.
 hi clear SignColumn
+" Binding to reload vimrc config
+nmap <leader>r :source ~/.vimrc<CR>
 
 " ----- Plugin-Specific Settings --------------------------------------
 
@@ -134,7 +143,7 @@ nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
 
 " ----- scrooloose/nerdtree -----
-nnoremap <leader>t :NERDTreeToggle<CR>
+nnoremap <silent> <leader>t :NERDTreeToggle<CR>
 
 " ----- xolox/vim-easytags settings -----
 " Where to look for tags files
@@ -143,14 +152,18 @@ set tags=./tags;,~/.vimtags
 let g:easytags_events = ['BufReadPost', 'BufWritePost']
 let g:easytags_async = 1
 let g:easytags_dynamic_files = 2
-let g:easytags_resolve_links = 1
-let g:easytags_suppress_ctags_warning = 1
+" let g:easytags_resolve_links = 1
+" let g:easytags_suppress_ctags_warning = 1
 
 " ----- majutsushi/tagbar settings -----
 " Open/close tagbar with leader b
 nmap <silent> <leader>b :TagbarToggle<CR>
 " Uncomment to open tagbar automatically whenever possible
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
+" ----- ctrl-p settings -----
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
 
 " ----- airblade/vim-gitgutter settings -----
 " In vim-airline, only display 'hunks' if the diff is non-zero
