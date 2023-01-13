@@ -138,5 +138,7 @@ export PATH=$RSOFT_PROGRAMPATH:$PATH
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$RSOFT_PROGRAMPATH
 export SNPSLMD_LICENSE_FILE="27020@upvfab-vega.iteam.upv.es"
 
+# iPronics config
+# export IPRONICS_USER_CFG="${HOME}/.config/ipronics"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
