@@ -98,6 +98,8 @@ endif
 hi clear SignColumn
 " Binding to reload vimrc config
 nmap <leader>r :source ~/.vimrc<CR>
+" Navigate through buffers more easily
+nmap <silent> <leader>v :ls<cr>:b<space>
 
 " ----- Plugin-Specific Settings --------------------------------------
 
@@ -171,5 +173,5 @@ let g:airline#extensions#hunks#non_zero_only = 1
 
 " ----- jez/vim-superman settings -----
 " better man page support
-noremap K :SuperMan <cword><CR>
+" noremap K :SuperMan <cword><CR>
 

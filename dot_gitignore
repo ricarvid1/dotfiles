@@ -1,0 +1,7 @@
+# global gitignore file
+# all tags
+tags
+# dav-skratches
+sk_*.py
+# vscode
+/.vscode

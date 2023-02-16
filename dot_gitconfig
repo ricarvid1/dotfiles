@@ -1,5 +1,6 @@
 [core]
 	editor = vim
+	excludesFile = /home/ricarvid/.gitignore
 [user]
 	name = David Sanchez
 	email = ricarvid_9319@hotmail.com
