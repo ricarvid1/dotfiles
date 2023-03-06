@@ -31,6 +31,9 @@ Plug 'xolox/vim-easytags'
 Plug 'preservim/tagbar' 
 " Fuzzy file, buffer, etc. finder
 Plug 'ctrlpvim/ctrlp.vim' 
+" Fuzzy file, buffer, etc. finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 " Surrounding ysw)
 Plug 'tpope/vim-surround' 
 " For Commenting gcc & gc
