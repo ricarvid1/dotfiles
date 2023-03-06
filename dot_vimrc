@@ -30,7 +30,7 @@ Plug 'xolox/vim-easytags'
 " Vim plugin that displays tags in a Window ordered
 Plug 'preservim/tagbar' 
 " Fuzzy file, buffer, etc. finder
-Plug 'ctrlpvim/ctrlp.vim' 
+" Plug 'ctrlpvim/ctrlp.vim' 
 " Fuzzy file, buffer, etc. finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -102,7 +102,7 @@ hi clear SignColumn
 " Binding to reload vimrc config
 nmap <leader>r :source ~/.vimrc<CR>
 " Navigate through buffers more easily
-nmap <silent> <leader>v :ls<cr>:b<space>
+" nmap <silent> <leader>v :ls<cr>:b<space>
 
 " ----- Plugin-Specific Settings --------------------------------------
 
@@ -166,9 +166,13 @@ nmap <silent> <leader>b :TagbarToggle<CR>
 " Uncomment to open tagbar automatically whenever possible
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
 " ----- ctrl-p settings -----
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlP'
+" let g:ctrlp_working_path_mode = 'ra'
+" ----- fzf settings ----
+nnoremap <C-p> :GFiles<Cr>
+nnoremap <C-g> :Ag<Cr>
+nnoremap <silent> <leader>v :Buffers <CR>
 
 " ----- airblade/vim-gitgutter settings -----
 " In vim-airline, only display 'hunks' if the diff is non-zero
