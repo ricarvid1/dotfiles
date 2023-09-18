@@ -52,6 +52,9 @@ windows:
       # synchronize: after
       panes:
         - vim
-        - ls
   - terminal: 
+      layout: even-horizontal
+      panes:
+        - 
+        - 
   - python: ipython 
