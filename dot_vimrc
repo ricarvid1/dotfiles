@@ -42,7 +42,13 @@ Plug 'tpope/vim-commentary'
 Plug 'sheerun/vim-polyglot' 
 " Auto pairs ()[]{}
 Plug 'LunarWatcher/auto-pairs' 
-
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 " --------- Working with Git -----------------------------------------
 " Git wrapper
 Plug 'tpope/vim-fugitive' 
@@ -182,3 +188,5 @@ let g:airline#extensions#hunks#non_zero_only = 1
 " better man page support
 " noremap K :SuperMan <cword><CR>
 
+" ----- deoplete settings -----
+let g:deoplete#enable_at_startup = 1
