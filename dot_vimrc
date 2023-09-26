@@ -63,7 +63,7 @@ Plug 'maxboisvert/vim-simple-complete'
 
 " --------- man pages, tmux ------------------------------
 " Read Unix man pages faster than a sPEEDIng bullet!
-Plug 'jez/vim-superman' 
+" Plug 'jez/vim-superman' 
 " tmux navigation
 Plug 'christoomey/vim-tmux-navigator' 
 
