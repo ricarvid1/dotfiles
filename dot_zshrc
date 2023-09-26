@@ -108,6 +108,7 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias muxi="tmuxinator"
 alias mend="~/Programs/mendeley/mendeley-reference-manager-2.*.0-x86_64.AppImage"
+alias cz="chezmoi"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
