@@ -36,6 +36,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " Surrounding ysw)
 Plug 'tpope/vim-surround' 
+" Add misc bindings
+Plug 'tpope/vim-unimpaired'
 " For Commenting gcc & gc
 Plug 'tpope/vim-commentary' 
 " Syntax autocomplete
