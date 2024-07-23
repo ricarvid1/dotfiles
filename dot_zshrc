@@ -90,9 +90,9 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
+  export EDITOR='nvim'
 else
-  export EDITOR='vim'
+  export EDITOR='nvim'
 fi
 
 # Compilation flags
@@ -109,26 +109,29 @@ fi
 alias muxi="tmuxinator"
 alias mend="~/Programs/mendeley/mendeley-reference-manager-2.*.0-x86_64.AppImage"
 alias cz="chezmoi"
+alias upd="sudo apt update"
+alias upg="sudo apt upgrade"
+alias arm="sudo apt autoremove"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('${HOME}/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('${HOME}/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "${HOME}/mambaforge/etc/profile.d/conda.sh" ]; then
-        . "${HOME}/mambaforge/etc/profile.d/conda.sh"
+    if [ -f "${HOME}/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "${HOME}/miniforge3/etc/profile.d/conda.sh"
     else
-        export PATH="${HOME}/mambaforge/bin:$PATH"
+        export PATH="${HOME}/miniforge3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 
-if [ -f "${HOME}/mambaforge/etc/profile.d/mamba.sh" ]; then
-    . "${HOME}/mambaforge/etc/profile.d/mamba.sh"
+if [ -f "${HOME}/miniforge3/etc/profile.d/mamba.sh" ]; then
+    . "${HOME}/miniforge3/etc/profile.d/mamba.sh"
 fi
 # <<< conda initialize <<<
 
@@ -149,5 +152,14 @@ export GTK_PATH=/usr/lib/x86_64-linux-gnu/gtk-2.0
 
 # iPronics config
 # export IPRONICS_USER_CFG="${HOME}/.config/ipronics"
+# Add nvim to path
+export PATH="$PATH:/opt/nvim/"
+# Add nvim config var
+export NVIM_CFG="${HOME}/.config/nvim/"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fpath+=${ZDOTDIR:-~}/.zsh_functions

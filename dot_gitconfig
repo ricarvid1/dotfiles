@@ -1,5 +1,5 @@
 [core]
-	editor = vim
+	editor = nvim
 	excludesFile = ~/.gitignore
 [user]
 	name = David Sanchez
@@ -19,5 +19,8 @@
   conflictstyle = diff3
 [diff]
   colorMoved = default
-
+[credential]
+    helper = store --file ~/.git-credentials
 			
+[init]
+	defaultBranch = main

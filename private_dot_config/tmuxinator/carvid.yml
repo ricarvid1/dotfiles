@@ -47,6 +47,6 @@ root: ~/
 windows:
   - terminal:
   - editor:
-    - vim
+    - nvim
   - monitor:
       btop
