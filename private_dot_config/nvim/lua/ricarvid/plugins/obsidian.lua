@@ -36,6 +36,14 @@ return {
       },
     },
 
-    -- see below for full list of options 👇
+    -- Optional, by default when you use `:ObsidianFollowLink` on a link to an external
+    -- URL it will be ignored but you can customize this behavior here.
+    ---@param url string
+    follow_url_func = function(url)
+      -- Open the URL in the default web browser.
+      -- vim.fn.jobstart({ "open", url }) -- Mac OS
+      vim.fn.jobstart({ "xdg-open", url }) -- linux
+      -- vim.cmd(':silent exec "!start ' .. url .. '"') -- Windows
+    end, -- see below for full list of options 👇
   },
 }
