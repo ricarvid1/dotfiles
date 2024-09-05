@@ -20,10 +20,23 @@ return {
 
     local luasnip = require("luasnip")
 
+    luasnip.config.set_config({ -- Setting LuaSnip config
+
+      -- Enable autotriggered snippets
+      enable_autosnippets = true,
+
+      -- Use Tab (or some other key if you prefer) to trigger visual selection
+      store_selection_keys = "<Tab>",
+    })
+
     local lspkind = require("lspkind")
 
     -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
     require("luasnip.loaders.from_vscode").lazy_load()
+    -- Load snippets from my custom luasnip folder
+    local config_dir = vim.fn.stdpath("config")
+    local snippet_path = config_dir .. "/lua/ricarvid/luasnippets/"
+    require("luasnip.loaders.from_lua").lazy_load({ paths = { snippet_path } })
 
     cmp.setup({
       completion = {
@@ -60,6 +73,11 @@ return {
             luasnip.jump(-1)
           end
         end, { "i", "s" }),
+        ["<C-c>"] = cmp.mapping(function()
+          if luasnip.choice_active() then
+            luasnip.change_choice(1)
+          end
+        end, { "i", "s" }, { silent = true }),
       }),
       -- sources for autocompletion
       sources = cmp.config.sources({

@@ -3,6 +3,7 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
+    "barreiroleo/ltex_extra.nvim",
     { "antosha417/nvim-lsp-file-operations", config = true },
     { "j-hui/fidget.nvim", opts = {} },
     { "folke/neodev.nvim", opts = {} },
@@ -93,6 +94,23 @@ return {
       --     filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
       --   })
       -- end,
+      ["texlab"] = function()
+        -- configure the texlab language server
+        lspconfig["texlab"].setup({
+          capabilities = capabilities,
+          filetypes = { "tex" },
+        })
+      end,
+      ["ltex"] = function()
+        -- configure the texlab language server
+        lspconfig["ltex"].setup({
+          capabilities = capabilities,
+          on_attach = function() -- rest of your on_attach process.
+            require("ltex_extra").setup({})
+          end,
+          filetypes = { "tex", "markdown", "plaintext" },
+        })
+      end,
       ["lua_ls"] = function()
         -- configure lua server (with special settings)
         lspconfig["lua_ls"].setup({

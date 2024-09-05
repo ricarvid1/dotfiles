@@ -1,5 +1,6 @@
 -- set leader key to space
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 local keymap = vim.keymap -- for conciseness
 
@@ -8,6 +9,15 @@ local keymap = vim.keymap -- for conciseness
 
 -- use jk to exit insert mode
 -- keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
+-- Use jk in wrapped lines to navigate if there's a count added to the move.
+-- Behave normally
+keymap.set("n", "j", function()
+  if vim.v.count > 0 then
+    return "j"
+  else
+    return "gj"
+  end
+end, { expr = true })
 
 -- clear search highlights
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
@@ -37,10 +47,19 @@ keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer
 --
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+-- keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- TIP: Disable arrow keys in normal mode
 keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
 keymap.set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
 keymap.set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
 keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
+-- Load snippets from my custom luasnip folder
+local config_dir = vim.fn.stdpath("config")
+local snippet_path = config_dir .. "/lua/ricarvid/luasnippets/"
+keymap.set(
+  "n",
+  "<leader>sn",
+  '<Cmd>lua require("luasnip.loaders.from_lua").load({paths = "' .. snippet_path .. '"})<CR>',
+  { desc = "Reload custom snippets", silent = false }
+)

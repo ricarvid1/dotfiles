@@ -5,21 +5,20 @@ return {
     local conform = require("conform")
 
     conform.setup({
+      log_level = vim.log.levels.DEBUG,
       formatters_by_ft = {
-        -- javascript = { "prettier" },
-        -- typescript = { "prettier" },
-        -- javascriptreact = { "prettier" },
-        -- typescriptreact = { "prettier" },
-        -- svelte = { "prettier" },
-        -- css = { "prettier" },
-        -- html = { "prettier" },
         -- json = { "prettier" },
         yaml = { "prettier" },
         markdown = { "prettier" },
-        -- graphql = { "prettier" },
-        -- liquid = { "prettier" },
         lua = { "stylua" },
         python = { "isort", "black" },
+        tex = { "latexindent" },
+      },
+      formatters = {
+        latexindent = {
+          -- command = vim.fn.expand("~") .. "/src/latexindent.pl/latexindent.pl",
+          prepend_args = { "-m" },
+        },
       },
       format_on_save = {
         lsp_fallback = true,

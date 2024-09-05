@@ -14,11 +14,14 @@ return {
     local mason_tool_installer = require("mason-tool-installer")
     -- enable mason and configure icons
     mason.setup({
+      -- registries = {
+      --   "file:/home/ricarvid/src/mason-registry/",
+      -- },
       ui = {
         icons = {
-          -- package_installed = "✓",
-          -- package_pending = "➜",
-          -- package_uninstalled = "✗",
+          package_installed = "✓",
+          package_pending = "➜",
+          package_uninstalled = "✗",
         },
       },
     })
@@ -26,17 +29,10 @@ return {
     mason_lspconfig.setup({
       -- list of servers for mason to install
       ensure_installed = {
-        -- WebDev lsps
-        -- "tsserver",
-        -- "html",
-        -- "cssls",
-        -- "tailwindcss",
-        -- "svelte",
-        -- "graphql",
-        -- "emmet_ls",
-        -- "prismals",
         "lua_ls",
         "pyright",
+        "texlab",
+        "ltex",
       },
     })
 
@@ -47,7 +43,7 @@ return {
         "isort", -- python formatter
         "black", -- python formatter
         "pylint", -- python linter
-        -- "eslint_d", -- js linter
+        -- { "latexindent", version = "v3.24.4" }, -- tex formatter
       },
     })
   end,

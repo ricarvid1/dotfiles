@@ -7,16 +7,17 @@ opt.relativenumber = true -- show relative line numbers
 opt.number = true -- shows absolute line number on cursor line (when relative number is on)
 
 -- Limit line length to a given number of chars
-vim.opt.textwidth = 110
+opt.textwidth = 110
+-- Enable wrapping for long lines
+opt.wrap = true
+-- Enable wrapping at boundaries
+opt.linebreak = true
 
 -- tabs & indentation
 opt.tabstop = 2 -- 2 spaces for tabs (prettier default)
 opt.shiftwidth = 2 -- 2 spaces for indent width
 opt.expandtab = true -- expand tab to spaces
 opt.autoindent = true -- copy indent from current line when starting new one
-
--- line wrapping
-opt.wrap = false -- disable line wrapping
 
 -- search settings
 opt.ignorecase = true -- ignore case when searching
@@ -79,3 +80,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     vim.highlight.on_yank()
   end,
 })
+
+-- Spellcheck configurations
+-- Set spell language to US English
+opt.spelllang = "en_us"
+-- Activate Spellcheck for txt, md and latex files
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = { "markdown", "text", "tex" },
+--   callback = function()
+--     vim.opt_local.spell = true
+-- end,
+-- })
