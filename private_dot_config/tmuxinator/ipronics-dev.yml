@@ -1,7 +1,7 @@
-# /home/ricarvid/.config/tmuxinator/ipronics-sdk.yml
+# /home/ricarvid/.config/tmuxinator/ipronics-dev.yml
 
-name: ipronics-sdk
-root: ~/Git/iPronics-PRL/
+name: ipronics-dev
+root: ~/src
 
 # Optional tmux socket
 # socket_name: foo
@@ -27,7 +27,7 @@ root: ~/Git/iPronics-PRL/
 # on_project_stop: command
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
-pre_window: conda activate ipronics
+pre_window: conda activate swtchd
 
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
@@ -45,16 +45,22 @@ pre_window: conda activate ipronics
 # attach: false
 
 windows:
+  - terminal:
+      layout: even-horizontal
+      panes:
+        -
+        -
   - editor:
-      layout: main-horizontal
+    layout:
+      - editor:
+          - nvim
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
+  - notes:
+      # layout: even-vertical
       panes:
-        - nvim
-  - terminal: 
-      layout: even-horizontal
-      panes:
-        - 
-        - 
-  - python: ipython 
+        - editor:
+            - cd ~/vaults/work/
+            - nvim
+        # -
