@@ -6,7 +6,7 @@ The two main reasons to maintain this repo are backing up my settings and also b
 The configurations mainly target:
 
 - tmux (heavily influenced by the [tmux2][] book)
-- z shell (heavily influenced by the [josean][] blog and YouTube tutorials)
+- alacrity + z shell (heavily influenced by the [josean][] blog and YouTube tutorials)
 - neovim (influenced by the [josean] tutorials and the great [kickstart] repo)
 - zathura (heavily influenced by the great [vimtex] tutorial series)
 - vim (mostly deprecated)
