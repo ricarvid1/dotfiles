@@ -16,5 +16,5 @@ Feel free to explore and take what you find useful or leave recommendations :)
 [chezmoi]: https://www.chezmoi.io/
 [tmux2]: https://pragprog.com/titles/bhtmux2/tmux-2/
 [josean]: https://www.josean.com/posts/how-to-setup-neovim-2024
-[kickstart]: https://github.com/nvim-lua/kickstart.nvim-lua
+[kickstart]: https://github.com/nvim-lua/kickstart.nvim
 [vimtex]: https://ejmastnak.com/tutorials/vim-latex/intro/
