@@ -8,6 +8,8 @@ opt.number = true -- shows absolute line number on cursor line (when relative nu
 
 -- Limit line length to a given number of chars
 opt.textwidth = 110
+-- Highlight column given by the limit above
+opt.colorcolumn = "110"
 -- Enable wrapping for long lines
 opt.wrap = true
 -- Enable wrapping at boundaries
