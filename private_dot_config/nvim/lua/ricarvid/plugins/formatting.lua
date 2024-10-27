@@ -13,6 +13,7 @@ return {
         lua = { "stylua" },
         python = { "isort", "black" },
         tex = { "latexindent" },
+        bib = { "bibtex-tidy" },
       },
       formatters = {
         latexindent = {
