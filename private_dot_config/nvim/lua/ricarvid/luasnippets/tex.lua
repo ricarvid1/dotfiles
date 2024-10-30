@@ -38,11 +38,11 @@ return {
     { trig = "ls", dscr = "Expands 'ls' into an LstListing environment" },
     fmta(
       [[
-       \begin{lstlisting}
+       \begin{lstlisting}[caption={<>}, label=<>]
        <>
        \end{lstlisting}
      ]],
-      { i(0) }
+      { i(1), i(2), i(3) }
     )
   ),
   -- Code for environment snippet
