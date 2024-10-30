@@ -62,5 +62,5 @@ windows:
       # layout: even-vertical
       panes:
         - editor:
-            - cd ~/vaults/work/
+            - cd ~/vaults/thesis/
             - nvim
