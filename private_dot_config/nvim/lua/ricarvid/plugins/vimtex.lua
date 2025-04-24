@@ -23,8 +23,8 @@ return {
 
     -- set keymaps
     -- Use `update` to ensure document is saved before single-shot compilation
-    local keymap = vim.keymap -- for conciseness
-    keymap.set("n", "<leader>lh", "<Cmd>update<CR><Cmd>VimtexCompileSS<CR>", { desc = "Vimtex compile single-shot" })
+    -- local keymap = vim.keymap -- for conciseness
+    -- keymap.set("n", "<leader>lh", "<Cmd>update<CR><Cmd>VimtexCompileSS<CR>", { desc = "Vimtex compile single-shot" })
     -- noremap <localleader>c <Cmd>update<CR><Cmd>VimtexCompileSS<CR>
   end,
 }
