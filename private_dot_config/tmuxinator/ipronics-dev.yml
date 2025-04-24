@@ -27,7 +27,7 @@ root: ~/src
 # on_project_stop: command
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
-pre_window: conda activate swtchd
+# pre_window: conda activate swtchd
 
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
@@ -51,16 +51,14 @@ windows:
         -
         -
   - editor:
-    layout:
-      - editor:
-          - nvim
+      panes:
+        - editor:
+            -
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
   - notes:
-      # layout: even-vertical
       panes:
         - editor:
             - cd ~/vaults/work/
             - nvim
-        # -
