@@ -23,7 +23,7 @@ end, { expr = true })
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 
 -- delete single character without copying into register
--- keymap.set("n", "x", '"_x')
+keymap.set("n", "x", '"_x')
 
 -- increment/decrement numbers
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
@@ -63,3 +63,8 @@ keymap.set(
   '<Cmd>lua require("luasnip.loaders.from_lua").load({paths = "' .. snippet_path .. '"})<CR>',
   { desc = "Reload custom snippets", silent = false }
 )
+-- Open Markets
+-- Lazy
+keymap.set("n", "<leader>ml", "<cmd>Lazy<CR>", { desc = "[L]azy" })
+-- Mason
+keymap.set("n", "<leader>mm", "<cmd>Mason<CR>", { desc = "[M]ason" })
