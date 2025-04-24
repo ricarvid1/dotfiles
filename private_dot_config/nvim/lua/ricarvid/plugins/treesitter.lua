@@ -8,6 +8,7 @@ return {
   opts = { -- enable syntax highlighting
     highlight = {
       enable = true,
+      disable = { "latex" },
     },
     -- enable indentation
     indent = { enable = true },
@@ -27,8 +28,6 @@ return {
       "vimdoc",
       "python",
     },
-    -- disable for ft like latex
-    disable = { "latex" },
     -- incremental_selection
     incremental_selection = {
       enable = true,
