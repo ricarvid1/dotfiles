@@ -1,7 +1,7 @@
 # /home/ricarvid/.config/tmuxinator/thesis.yml
 
 name: thesis
-root: ~/tex
+root: ~/tex/dsj-thesis/
 
 # Optional tmux socket
 # socket_name: foo
@@ -46,20 +46,18 @@ root: ~/tex
 
 windows:
   - terminal:
-      layout: even-horizontal
+      # layout: even-horizontal
       panes:
         -
-        -
   - editor:
-    layout:
-      - editor:
-          - cd dsj-thesis/
-          - nvim
+      panes:
+        - editor:
+            - cd ~/tex/dsj-thesis/
+            - nvim
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
   - notes:
-      # layout: even-vertical
       panes:
         - editor:
             - cd ~/vaults/thesis/
