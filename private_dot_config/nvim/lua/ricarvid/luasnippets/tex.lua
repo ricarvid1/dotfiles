@@ -38,11 +38,59 @@ return {
     { trig = "ls", dscr = "Expands 'ls' into an LstListing environment" },
     fmta(
       [[
-       \begin{lstlisting}[caption={<>}, label=<>]
+       \begin{lstlisting}[caption={<>}, label=lst:<>]
        <>
        \end{lstlisting}
      ]],
       { i(1), i(2), i(3) }
+    )
+  ),
+
+  s(
+    { trig = "sc", dscr = "Expands 'sc' into a section with label" },
+    fmta(
+      [[
+       \section{<>} \label={sec:<>}
+     ]],
+      { i(1), i(2) }
+    )
+  ),
+
+  s(
+    { trig = "ee", dscr = "Expand 'ee' into inline equation" },
+    fmta(
+      [[
+       \(<>\)
+     ]],
+      { i(1) }
+    )
+  ),
+
+  s(
+    { trig = "ils", dscr = "Add inline listing" },
+    fmta(
+      [[
+       \lstinline|<>|
+     ]],
+      { i(1) }
+    )
+  ),
+
+  s({ trig = "td", dscr = "Expands 'td' into a section with label" }, {
+    t("% TODO: "),
+    i(1),
+  }),
+
+  s(
+    { trig = "chr", dscr = "Chapter reference" },
+    fmta(
+      [[
+      <>~\ref{chap:<>}
+    ]],
+      {
+        i(1, "Chapter"),
+        i(2),
+      }
     )
   ),
   -- Code for environment snippet
