@@ -14,6 +14,7 @@ return {
     local mason_tool_installer = require("mason-tool-installer")
     -- enable mason and configure icons
     mason.setup({
+      -- Uncomment to test Mason registry
       -- registries = {
       --   "file:/home/ricarvid/src/mason-registry/",
       -- },
@@ -33,6 +34,9 @@ return {
         "pyright",
         "texlab",
         "ltex",
+        "pyright",
+        "yamlls",
+        "marksman",
       },
     })
 
@@ -40,9 +44,7 @@ return {
       ensure_installed = {
         "prettier", -- prettier formatter
         "stylua", -- lua formatter
-        "isort", -- python formatter
-        "black", -- python formatter
-        "pylint", -- python linter
+        "ruff", -- python formatter
         -- { "latexindent", version = "v3.24.4" }, -- tex formatter
       },
     })
