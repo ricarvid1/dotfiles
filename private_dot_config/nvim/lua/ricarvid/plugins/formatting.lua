@@ -11,7 +11,7 @@ return {
         yaml = { "prettier" },
         markdown = { "prettier" },
         lua = { "stylua" },
-        python = { "isort", "black" },
+        python = { "ruff_format" },
         tex = { "latexindent" },
         bib = { "bibtex-tidy" },
       },
@@ -28,12 +28,12 @@ return {
       },
     })
 
-    vim.keymap.set({ "n", "v" }, "<leader>mp", function()
+    vim.keymap.set({ "n", "v" }, "<leader>rm", function()
       conform.format({
         lsp_fallback = true,
         async = false,
-        timeout_ms = 1000,
+        timeout_ms = 10000,
       })
-    end, { desc = "Format file or range (in visual mode)" })
+    end, { desc = "For[M]at file or range (in visual mode)" })
   end,
 }
