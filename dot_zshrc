@@ -105,13 +105,26 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias muxi="tmuxinator"
-alias mend="~/Programs/mendeley/mendeley-reference-manager-2.*.0-x86_64.AppImage"
+alias lg="lazygit"
 alias cz="chezmoi"
 alias upd="sudo apt update"
 alias upg="sudo apt upgrade"
 alias arm="sudo apt autoremove"
+# ---- Eza (better ls) -----
+alias ls="eza --icons=always"
 
-
+# ---- Zoxide (better cd) ----
+eval "$(zoxide init zsh)"
+alias cd="z"
+# ---- Yazi (better file manager) ----
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('$HOME/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -138,11 +151,9 @@ export PATH=$PATH:/opt/nvim/
 # Add nvim config var
 export NVIM_CFG=$HOME/.config/nvim/
 # ---- TEXLIVE -----
-export PATH=$PATH:$HOME/Programs/texlive/2024/bin/x86_64-linux
-export MANPATH=$HOME/Programs/texlive/2024/texmf-dist/doc/man/:$MANPATH
-export INFOPATH=$HOME/Programs/texlive/2024/texmf-dist/doc/info/:$INFOPATH
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+export PATH=$PATH:$HOME/Programs/texlive/2025/bin/x86_64-linux
+export MANPATH=$HOME/Programs/texlive/2025/texmf-dist/doc/man/:$MANPATH
+export INFOPATH=$HOME/Programs/texlive/2025/texmf-dist/doc/info/:$INFOPATH
 
 # history setup
 HISTFILE=$HOME/.zhistory
@@ -164,13 +175,15 @@ autoload -U compaudit compinit
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Syntax hihglighting
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# Git plugin
-# source ~/.zsh/ohmyzsh/plugins/git/git.plugin.zsh
 
-# ---- Eza (better ls) -----
-alias ls="eza --icons=always"
+# Add rbenv to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$HOME/.rbenv/bin:$PATH"
 
-# ---- Zoxide (better cd) ----
-eval "$(zoxide init zsh)"
-alias cd="z"
+# Added by `rbenv init` on Thu Jan  9 06:48:56 PM CET 2025
+eval "$(rbenv init - --no-rehash zsh)"
 
+PATH="/home/ricarvid/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/ricarvid/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/ricarvid/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/ricarvid/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/ricarvid/perl5"; export PERL_MM_OPT;
