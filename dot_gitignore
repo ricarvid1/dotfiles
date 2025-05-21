@@ -2,6 +2,7 @@
 # all tags
 tags
 # dav-skratches
-sk_*.py
+sk-*.py
+/scratches
 # vscode
 /.vscode
