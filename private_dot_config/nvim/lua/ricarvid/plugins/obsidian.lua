@@ -1,5 +1,5 @@
 return {
-  "epwalsh/obsidian.nvim",
+  "obsidian-nvim/obsidian.nvim",
   version = "*", -- recommended, use latest release instead of latest commit
   lazy = true,
   ft = "markdown",
@@ -18,7 +18,7 @@ return {
 
     -- see below for full list of optional dependencies 👇
     -- completion
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
     -- pickers
     "nvim-telescope/telescope.nvim",
     -- syntax highlighting
@@ -49,6 +49,14 @@ return {
           return os.date("%Y-%m")
         end,
       },
+    },
+
+    -- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
+    completion = {
+      -- Enables completion using blink.cmp
+      blink = true,
+      -- Trigger completion at 2 chars.
+      min_chars = 2,
     },
     -- Specify how to handle attachments.
     attachments = {
