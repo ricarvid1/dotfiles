@@ -83,7 +83,11 @@ ZSH_THEME=""
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+	zsh-autosuggestions 
+	zsh-syntax-highlighting 
+	git
+	)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -171,10 +175,6 @@ bindkey '^[[B' history-search-forward
 # zsh add-ons
 # Load all stock functions (from $fpath files) called below.
 autoload -U compaudit compinit
-# Autosuggestions
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-# Syntax hihglighting
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Add rbenv to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -187,3 +187,7 @@ PERL5LIB="/home/ricarvid/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5
 PERL_LOCAL_LIB_ROOT="/home/ricarvid/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/ricarvid/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/ricarvid/perl5"; export PERL_MM_OPT;
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
