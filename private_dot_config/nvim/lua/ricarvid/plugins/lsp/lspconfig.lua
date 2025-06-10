@@ -66,21 +66,6 @@ return {
       end,
     })
 
-    -- used to enable autocompletion (assign to every lsp server config)
-    local capabilities = {
-      textDocument = {
-        foldingRange = {
-          dynamicRegistration = false,
-          lineFoldingOnly = true,
-        },
-      },
-    }
-
-    -- LSP servers and clients are able to communicate to each other what features they support.
-    --  By default, Neovim doesn't support everything that is in the LSP specification.
-    --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
-    --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
-    local capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
     -- Change the Diagnostic symbols in the sign column (gutter)
     -- (not in youtube nvim video)
     local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
@@ -88,6 +73,12 @@ return {
       local hl = "DiagnosticSign" .. type
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
     end
+
+    -- LSP servers and clients are able to communicate to each other what features they support.
+    --  By default, Neovim doesn't support everything that is in the LSP specification.
+    --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
+    --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
+    local capabilities = require("blink.cmp").get_lsp_capabilities()
 
     -- Enable the following language servers
     --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -146,24 +137,24 @@ return {
           },
         },
       },
-      lua_ls = {
-        -- cmd = { ... },
-        -- filetypes = { ... },
-        -- capabilities = {},
-        settings = {
-          Lua = {
-            -- make the language server recognize "vim" global
-            diagnostics = {
-              globals = { "vim" },
-            },
-            completion = {
-              callSnippet = "Replace",
-            },
-            -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            -- diagnostics = { disable = { 'missing-fields' } },
-          },
-        },
-      },
+      -- lua_ls = {
+      --   -- cmd = { ... },
+      --   -- filetypes = { ... },
+      --   -- capabilities = {},
+      --   settings = {
+      --     Lua = {
+      --       -- make the language server recognize "vim" global
+      --       diagnostics = {
+      --         globals = { "vim" },
+      --       },
+      --       completion = {
+      --         callSnippet = "Replace",
+      --       },
+      --       -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+      --       -- diagnostics = { disable = { 'missing-fields' } },
+      --     },
+      --   },
+      -- },
       yamlls = {
         settings = {
           yaml = {
@@ -179,11 +170,30 @@ return {
         },
       },
     } --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+
+    vim.lsp.config("lua_ls", {
+      -- cmd = { ... },
+      -- filetypes = { ... },
+      -- capabilities = {},
+      settings = {
+        Lua = {
+          -- make the language server recognize "vim" global
+          diagnostics = {
+            globals = { "vim" },
+          },
+          completion = {
+            callSnippet = "Replace",
+          },
+          -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+          -- diagnostics = { disable = { 'missing-fields' } },
+        },
+      },
+    })
     -- Ensure the servers and tools above are installed
     local ensure_installed = vim.tbl_keys(servers or {})
     require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
     -- Setup using Mason lsp config
-    require("mason-lspconfig").setup({
+    mason_lspconfig.setup({
       ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
       automatic_installation = false,
       handlers = {
@@ -193,132 +203,9 @@ return {
           -- by the server configuration above. Useful when disabling
           -- certain features of an LSP (for example, turning off formatting for ts_ls)
           server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-          require("lspconfig")[server_name].setup(server)
+          lspconfig[server_name].setup(server)
         end,
       },
     })
-    -- local servers = mason_lspconfig.setup_handlers({
-    --   -- default handler for installed servers
-    --   function(server_name)
-    --     lspconfig[server_name].setup({
-    --       capabilities = capabilities,
-    --     })
-    --   end,
-    --   -- ["graphql"] = function()
-    --   --   -- configure graphql language server
-    --   --   lspconfig["graphql"].setup({
-    --   --     capabilities = capabilities,
-    --   --     filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-    --   --   })
-    --   -- end,
-    --   ["marksman"] = function()
-    --     -- configure markdown language server
-    --     lspconfig["marksman"].setup({
-    --       capabilities = capabilities,
-    --       filetypes = { "markdown" },
-    --     })
-    --   end,
-    --   ["pyright"] = function()
-    --     -- configure python language server
-    --     lspconfig["pyright"].setup({
-    --       capabilities = capabilities,
-    --       filetypes = { "python" },
-    --     })
-    --   end,
-    --   ["texlab"] = function()
-    --     -- configure the texlab language server
-    --     lspconfig["texlab"].setup({
-    --       capabilities = capabilities,
-    --       filetypes = { "tex" },
-    --     })
-    --   end,
-    --   -- ["ltex"] = function()
-    --   --   -- configure the texlab language server
-    --   --   lspconfig["ltex"].setup({
-    --   --     capabilities = capabilities,
-    --   --     on_attach = function() -- rest of your on_attach process.
-    --   --       require("ltex_extra").setup({
-    --   --         -- table <string> : languages for witch dictionaries will be loaded, e.g. { "es-AR", "en-US" }
-    --   --         -- https://valentjn.github.io/ltex/supported-languages.html#natural-languages
-    --   --         load_langs = { "en-US", "es" }, -- en-US as default
-    --   --       })
-    --   --     end,
-    --   --     filetypes = { "tex", "markdown", "plaintext" },
-    --   --   })
-    --   -- end,
-    --   ["ltex"] = function()
-    --     -- configure the texlab language server
-    --     lspconfig["ltex_plus"].setup({
-    --       capabilities = capabilities,
-    --       on_attach = function(client, bufnr)
-    --         -- rest of your on_attach process.
-    --         require("ltex_extra").setup({
-    --           -- table <string> : languages for witch dictionaries will be loaded, e.g. { "es-AR", "en-US" }
-    --           -- load_langs = { "en-US", "es" }, -- en-US as default
-    --         })
-    --       end,
-    --       -- filetypes = { "tex", "markdown", "plaintext", "gitcommit" },
-    --       settings = {
-    --         ltex = {
-    --           enabled = {
-    --             "bib",
-    --             "context",
-    --             "gitcommit",
-    --             "html",
-    --             "markdown",
-    --             "org",
-    --             "pandoc",
-    --             "plaintex",
-    --             "quarto",
-    --             "mail",
-    --             "mdx",
-    --             "rmd",
-    --             "rnoweb",
-    --             "rst",
-    --             "tex",
-    --             "latex",
-    --             "text",
-    --             "typst",
-    --             "xhtml",
-    --           },
-    --         },
-    --       },
-    --     })
-    --   end,
-    --   ["yamlls"] = function()
-    --     -- configure the yaml language server
-    --     lspconfig["yamlls"].setup({
-    --       settings = {
-    --         yaml = {
-    --           schemaStore = {
-    --             -- You must disable built-in schemaStore support if you want to use
-    --             -- this plugin and its advanced options like `ignore`.
-    --             enable = false,
-    --             -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-    --             url = "",
-    --           },
-    --           schemas = require("schemastore").yaml.schemas(),
-    --         },
-    --       },
-    --     })
-    --   end,
-    --   ["lua_ls"] = function()
-    --     -- configure lua server (with special settings)
-    --     lspconfig["lua_ls"].setup({
-    --       capabilities = capabilities,
-    --       settings = {
-    --         Lua = {
-    --           -- make the language server recognize "vim" global
-    --           diagnostics = {
-    --             globals = { "vim" },
-    --           },
-    --           completion = {
-    --             callSnippet = "Replace",
-    --           },
-    --         },
-    --       },
-    --     })
-    --   end,
-    -- })
   end,
 }
