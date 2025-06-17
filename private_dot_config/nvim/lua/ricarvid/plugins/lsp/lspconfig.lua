@@ -9,12 +9,6 @@ return {
     { "folke/neodev.nvim", opts = {} },
   },
   config = function()
-    -- import lspconfig plugin
-    local lspconfig = require("lspconfig")
-
-    -- import mason_lspconfig plugin
-    local mason_lspconfig = require("mason-lspconfig")
-
     local keymap = vim.keymap -- for conciseness
 
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -94,11 +88,6 @@ return {
         end,
       },
     })
-    -- LSP servers and clients are able to communicate to each other what features they support.
-    --  By default, Neovim doesn't support everything that is in the LSP specification.
-    --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
-    --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
-    local capabilities = require("blink.cmp").get_lsp_capabilities()
 
     -- Enable the following language servers
     --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -108,89 +97,10 @@ return {
     --  - filetypes (table): Override the default list of associated filetypes for the server
     --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
     --  - settings (table): Override the default settings passed when initializing the server.
-    local servers = {
-      -- clangd = {},
-      -- gopls = {},
-      pyright = {},
-      marksman = {},
-      texlab = {},
-      -- rust_analyzer = {},
-      -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-      --
-      -- Some languages (like typescript) have entire language plugins that can be useful:
-      --    https://github.com/pmizio/typescript-tools.nvim
-      --
-      -- But for many setups, the LSP (`ts_ls`) will work just fine
-      -- ts_ls = {},
-      --
-      ltex = {
-        on_attach = function(client, bufnr)
-          -- rest of your on_attach process.
-          require("ltex_extra").setup({
-            -- table <string> : languages for witch dictionaries will be loaded, e.g. { "es-AR", "en-US" }
-            -- load_langs = { "en-US", "es" }, -- en-US as default
-          })
-        end,
-        settings = {
-          ltex = {
-            enabled = {
-              "bib",
-              "context",
-              "gitcommit",
-              "html",
-              "markdown",
-              "org",
-              "pandoc",
-              "plaintex",
-              "quarto",
-              "mail",
-              "mdx",
-              "rmd",
-              "rnoweb",
-              "rst",
-              "tex",
-              "latex",
-              "text",
-              "typst",
-              "xhtml",
-            },
-          },
-        },
-      },
-      -- lua_ls = {
-      --   -- cmd = { ... },
-      --   -- filetypes = { ... },
-      --   -- capabilities = {},
-      --   settings = {
-      --     Lua = {
-      --       -- make the language server recognize "vim" global
-      --       diagnostics = {
-      --         globals = { "vim" },
-      --       },
-      --       completion = {
-      --         callSnippet = "Replace",
-      --       },
-      --       -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-      --       -- diagnostics = { disable = { 'missing-fields' } },
-      --     },
-      --   },
-      -- },
-      yamlls = {
-        settings = {
-          yaml = {
-            schemaStore = {
-              -- You must disable built-in schemaStore support if you want to use
-              -- this plugin and its advanced options like `ignore`.
-              enable = false,
-              -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-              url = "",
-            },
-            schemas = require("schemastore").yaml.schemas(),
-          },
-        },
-      },
-    } --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-
+    vim.lsp.enable("pyright")
+    vim.lsp.enable("marksman")
+    vim.lsp.enable("texlab")
+    -- rust_analyzer = {},
     vim.lsp.config("lua_ls", {
       -- cmd = { ... },
       -- filetypes = { ... },
@@ -209,23 +119,32 @@ return {
         },
       },
     })
-    -- Ensure the servers and tools above are installed
-    local ensure_installed = vim.tbl_keys(servers or {})
-    require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-    -- Setup using Mason lsp config
-    mason_lspconfig.setup({
-      ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-      automatic_installation = false,
-      handlers = {
-        function(server_name)
-          local server = servers[server_name] or {}
-          -- This handles overriding only values explicitly passed
-          -- by the server configuration above. Useful when disabling
-          -- certain features of an LSP (for example, turning off formatting for ts_ls)
-          server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-          lspconfig[server_name].setup(server)
-        end,
+    vim.lsp.enable("lua_ls")
+    vim.lsp.config("ltex_plus", {
+      on_attach = function(client, bufnr)
+        -- rest of your on_attach process.
+        require("ltex_extra").setup({
+          -- table <string> : languages for witch dictionaries will be loaded, e.g. { "es-AR", "en-US" }
+          -- load_langs = { "en-US", "es" }, -- en-US as default
+        })
+      end,
+      settings = { ltex = {} },
+    })
+    vim.lsp.enable("ltex_plus")
+    vim.lsp.config("yamlls", {
+      settings = {
+        yaml = {
+          schemaStore = {
+            -- You must disable built-in schemaStore support if you want to use
+            -- this plugin and its advanced options like `ignore`.
+            enable = false,
+            -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+            url = "",
+          },
+          schemas = require("schemastore").yaml.schemas(),
+        },
       },
     })
+    vim.lsp.enable("yamlls")
   end,
 }
