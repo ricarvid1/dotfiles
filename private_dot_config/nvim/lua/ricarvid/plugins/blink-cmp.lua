@@ -1,16 +1,5 @@
 return {
   "saghen/blink.cmp",
-  -- optional: provides snippets for the snippet source
-  dependencies = {
-    "rafamadriz/friendly-snippets",
-    {
-      "L3MON4D3/LuaSnip",
-      -- follow latest release.
-      version = "*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-      -- install jsregexp (optional!).
-      build = "make install_jsregexp",
-    },
-  },
 
   -- use a release tag to download pre-built binaries
   version = "1.*",
@@ -18,7 +7,6 @@ return {
   -- build = 'cargo build --release',
   -- If you use nix, you can build from source using latest nightly rust with:
   -- build = 'nix run .#build-plugin',
-
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
@@ -43,15 +31,15 @@ return {
     },
 
     -- (Default) Only show the documentation popup when manually triggered
-    completion = { documentation = { auto_show = false } },
+    completion = { documentation = { auto_show = true } },
 
     -- Load snippets from my custom luasnip folder
-    -- snippets = { preset = "luasnip" },
+    snippets = { preset = "luasnip" },
 
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
+      default = { "lsp", "snippets", "buffer", "path" },
     },
 
     -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
