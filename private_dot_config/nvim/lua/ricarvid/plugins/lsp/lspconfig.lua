@@ -12,33 +12,49 @@ return {
     local keymap = vim.keymap -- for conciseness
 
     vim.api.nvim_create_autocmd("LspAttach", {
-      group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+      group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
+      -- This function is called when an LSP attaches to a buffer.
+      -- `ev` is the event object, which contains the buffer number.
+      -- `ev.buf` is the buffer number where the LSP is attached.
+      -- `callback` is a function that sets up keymaps and other LSP-related configurations
+      -- for the buffer.
+      -- See `:help vim.api.nvim_create_autocmd` for more details.
       callback = function(ev)
         -- Buffer local mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
         local opts = { buffer = ev.buf, silent = true }
 
         -- set keybinds
-        opts.desc = "Show LSP references"
-        keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+        opts.desc = "[G]o to LSP [R]eferences"
+        keymap.set("n", "gR", require("telescope.builtin").lsp_references, opts) -- show definition, references
 
-        opts.desc = "Go to declaration"
+        opts.desc = "[G]o to [D]eclaration"
         keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
 
-        opts.desc = "Show LSP definitions"
-        keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+        opts.desc = "[G]o to LSP [D]efinitions"
+        keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, opts) -- show lsp definitions
 
-        opts.desc = "Show LSP implementations"
-        keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+        opts.desc = "[G]o to LSP [I]mplementations"
+        keymap.set("n", "gi", require("telescope.builtin").lsp_implementations, opts) -- show lsp implementations
 
         opts.desc = "Show LSP type definitions"
-        keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+        keymap.set("n", "gt", require("telescope.builtin").lsp_type_definitions, opts) -- show lsp type definitions
+
+        -- Fuzzy find all the symbols in your current document.
+        --  Symbols are things like variables, functions, types, etc.
+        opts.desc = "[O]pen Document symbols"
+        keymap.set("n", "gO", require("telescope.builtin").lsp_document_symbols, opts)
+
+        -- Fuzzy find all the symbols in your current workspace.
+        --  Similar to document symbols, except searches over your entire project.
+        opts.desc = "[W]orkspace symbols"
+        keymap.set("n", "gW", require("telescope.builtin").lsp_dynamic_workspace_symbols, opts)
 
         opts.desc = "[A]ctions"
         keymap.set({ "n", "v" }, "<leader>c", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
 
         opts.desc = "Smart re[N]ame"
-        keymap.set("n", "<leader>gn", vim.lsp.buf.rename, opts) -- smart rename
+        keymap.set("n", "grn", vim.lsp.buf.rename, opts) -- smart rename
 
         opts.desc = "Buffer [D]iagnostics"
         keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
