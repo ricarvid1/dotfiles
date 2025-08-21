@@ -16,4 +16,5 @@ return {
   keys = {
     { "<leader>i", "<cmd>LazyGit<cr>", desc = "G[I]t" },
   },
+  enabled = false,
 }
