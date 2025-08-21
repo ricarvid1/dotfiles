@@ -11,5 +11,9 @@ return {
     require("mini.ai").setup({ n_lines = 500 })
     -- Better Surround textobjects
     require("mini.surround").setup()
+    -- Better Icon support
+    require("mini.icons").setup()
+    -- Session management
+    -- require("mini.sessions").setup()
   end,
 }
