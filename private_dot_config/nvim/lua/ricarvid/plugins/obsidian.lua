@@ -133,5 +133,8 @@ return {
         })
       end,
     },
+    ui = {
+      enable = false, -- set to false to disable all additional syntax features
+    },
   },
 }
