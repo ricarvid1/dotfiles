@@ -70,11 +70,8 @@ return {
     -- Either 'wiki' or 'markdown'.
     preferred_link_style = "markdown",
     callbacks = {
-      enter_note = function(_, note)
-        vim.keymap.set("n", "<leader>oh", "<cmd>Obsidian toggle_checkbox<cr>", {
-          buffer = note.bufnr,
-          desc = "c[H]eckbox",
-        })
+      enter_note = function(note)
+        vim.keymap.set("n", "<leader>oh", "<cmd>Obsidian toggle_checkbox<cr>", {})
         vim.keymap.set("n", "<leader>oo", "<cmd>Obsidian open<CR>", {
           buffer = note.bufnr,
           desc = "[O]pen",
