@@ -25,16 +25,16 @@ return {
         local opts = { buffer = ev.buf, silent = true }
 
         -- set keybinds
-        opts.desc = "[G]o to LSP [R]eferences"
+        opts.desc = "Go to LSP References"
         keymap.set("n", "gR", require("telescope.builtin").lsp_references, opts) -- show definition, references
 
-        opts.desc = "[G]o to [D]eclaration"
+        opts.desc = "Go to Declaration"
         keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
 
-        opts.desc = "[G]o to LSP [D]efinitions"
+        opts.desc = "Go to LSP Definitions"
         keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, opts) -- show lsp definitions
 
-        opts.desc = "[G]o to LSP [I]mplementations"
+        opts.desc = "Go to LSP Implementations"
         keymap.set("n", "gi", require("telescope.builtin").lsp_implementations, opts) -- show lsp implementations
 
         opts.desc = "Show LSP type definitions"
@@ -42,24 +42,24 @@ return {
 
         -- Fuzzy find all the symbols in your current document.
         --  Symbols are things like variables, functions, types, etc.
-        opts.desc = "[O]pen Document symbols"
+        opts.desc = "Open Document symbols"
         keymap.set("n", "gO", require("telescope.builtin").lsp_document_symbols, opts)
 
         -- Fuzzy find all the symbols in your current workspace.
         --  Similar to document symbols, except searches over your entire project.
-        opts.desc = "[W]orkspace symbols"
+        opts.desc = "Workspace symbols"
         keymap.set("n", "gW", require("telescope.builtin").lsp_dynamic_workspace_symbols, opts)
 
-        opts.desc = "[A]ctions"
+        opts.desc = "Actions"
         keymap.set({ "n", "v" }, "<leader>c", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
 
-        opts.desc = "Smart re[N]ame"
+        opts.desc = "Smart rename"
         keymap.set("n", "grn", vim.lsp.buf.rename, opts) -- smart rename
 
-        opts.desc = "Buffer [D]iagnostics"
+        opts.desc = "Buffer Diagnostics"
         keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
 
-        opts.desc = "Line [d]iagnostics"
+        opts.desc = "Line diagnostics"
         keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
 
         opts.desc = "Previous diagnostic"
@@ -68,10 +68,10 @@ return {
         opts.desc = "Next diagnostic"
         keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
 
-        opts.desc = "Show do[K]umentation under cursor"
+        opts.desc = "Show documentation under cursor"
         keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
-        opts.desc = "[R]estart LSP"
+        opts.desc = "Restart LSP"
         keymap.set("n", "<leader>gr", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
       end,
     })

@@ -65,6 +65,6 @@ keymap.set(
 )
 -- Open Markets
 -- Lazy
-keymap.set("n", "<leader>ml", "<cmd>Lazy<CR>", { desc = "[L]azy" })
+keymap.set("n", "<leader>ml", "<cmd>Lazy<CR>", { desc = "Lazy" })
 -- Mason
-keymap.set("n", "<leader>mm", "<cmd>Mason<CR>", { desc = "[M]ason" })
+keymap.set("n", "<leader>mm", "<cmd>Mason<CR>", { desc = "Mason" })

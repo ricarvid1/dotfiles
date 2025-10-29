@@ -17,7 +17,7 @@ return {
       end,
     })
     -- You probably also want to set a keymap to toggle aerial
-    vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>", { desc = "[A]erial" })
+    vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>", { desc = "Aerial" })
   end,
   enabled = true,
 }

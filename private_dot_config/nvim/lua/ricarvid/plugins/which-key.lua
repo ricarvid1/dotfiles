@@ -22,17 +22,17 @@ return {
   config = function()
     local wk = require("which-key")
     wk.add({
-      { "<leader>f", group = "[F]ind" }, -- group
-      { "<leader>e", group = "[E]xplorer" },
-      { "<leader>x", group = "[X]Errors" },
-      { "<leader>s", group = "[S]plit" },
-      { "<leader>t", group = "[T]ab" },
-      { "<leader>w", group = "[W]orkspace" },
-      { "<leader>r", group = "[R]un" },
-      { "<leader>g", group = "[G]LSP" },
-      { "<leader>h", group = "[H]unk" },
-      { "<leader>m", group = "[M]arketplace" },
-      { "<leader>o", group = "[O]bsidian" },
+      { "<leader>f", group = "Find" }, -- group
+      { "<leader>e", group = "Explorer" },
+      { "<leader>x", group = "Errors" },
+      { "<leader>s", group = "Split" },
+      { "<leader>t", group = "Tab" },
+      { "<leader>w", group = "Workspace" },
+      { "<leader>r", group = "Run" },
+      { "<leader>g", group = "LSP" },
+      { "<leader>h", group = "Hunk" },
+      { "<leader>m", group = "Marketplace" },
+      { "<leader>o", group = "Obsidian" },
     })
   end,
 }

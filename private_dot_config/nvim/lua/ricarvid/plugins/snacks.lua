@@ -383,7 +383,7 @@ return {
       function()
         Snacks.picker.lsp_type_definitions()
       end,
-      desc = "Goto T[y]pe Definition",
+      desc = "Goto Type Definition",
     },
     {
       "<leader>ss",

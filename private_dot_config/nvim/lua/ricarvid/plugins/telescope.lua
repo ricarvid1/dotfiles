@@ -38,17 +38,17 @@ return {
 
     -- See `:help telescope.builtin`
     local builtin = require("telescope.builtin")
-    keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "[F]ind [H]elp" })
-    keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "[F]ind [K]eymaps" })
-    keymap.set("n", "<leader>ff", builtin.find_files, { desc = "[F]ind [F]iles" })
-    keymap.set("n", "<leader>fl", builtin.builtin, { desc = "[F]ind Se[L]ect Telescope" })
-    keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "[F]ind current [W]ord" })
-    keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[F]ind by [G]rep" })
-    keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "[F]ind [D]iagnostics" })
-    keymap.set("n", "<leader>fr", builtin.resume, { desc = "[F]ind [R]esume" })
-    keymap.set("n", "<leader>f.", builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
+    keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find Help" })
+    keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Find Keymaps" })
+    keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
+    keymap.set("n", "<leader>fl", builtin.builtin, { desc = "Find Select Telescope" })
+    keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "Find current Word" })
+    keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find by Grep" })
+    keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Find Diagnostics" })
+    keymap.set("n", "<leader>fr", builtin.resume, { desc = "Find Resume" })
+    keymap.set("n", "<leader>f.", builtin.oldfiles, { desc = 'Find Recent Files ("." for repeat)' })
     keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
-    keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+    keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "Find existing buffers" })
 
     -- Slightly advanced example of overriding default behavior and theme
     keymap.set("n", "<leader>/", function()
@@ -57,11 +57,11 @@ return {
         winblend = 10,
         previewer = false,
       }))
-    end, { desc = "[/] Fuzzily search in current buffer" })
+    end, { desc = "Fuzzily search in current buffer" })
 
     -- Shortcut for searching your neovim configuration files
     keymap.set("n", "<leader>fn", function()
       builtin.find_files({ cwd = vim.fn.stdpath("config") })
-    end, { desc = "[F]ind [N]eovim files" })
+    end, { desc = "Find Neovim files" })
   end,
 }

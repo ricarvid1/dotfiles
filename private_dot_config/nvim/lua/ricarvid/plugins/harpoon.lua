@@ -13,10 +13,10 @@ return {
     local keymap = vim.keymap
     keymap.set("n", "<leader>ha", function()
       harpoon:list():add()
-    end, { desc = "[H]arpoon [A]dd" })
+    end, { desc = "Harpoon Add" })
     keymap.set("n", "<leader>hg", function()
       harpoon.ui:toggle_quick_menu(harpoon:list())
-    end, { desc = "[H]arpoon [G]et" })
+    end, { desc = "Harpoon Get" })
     -- TODO: Decide whether this is useful and change keys accordingly
     -- keymap.set("n", "<C-h>", function()
     --   harpoon:list():select(1)
