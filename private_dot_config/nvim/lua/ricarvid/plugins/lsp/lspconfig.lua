@@ -51,7 +51,7 @@ return {
         keymap.set("n", "gW", require("telescope.builtin").lsp_dynamic_workspace_symbols, opts)
 
         opts.desc = "Actions"
-        keymap.set({ "n", "v" }, "<leader>c", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+        keymap.set({ "n", "v" }, "<leader>cc", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
 
         opts.desc = "Smart rename"
         keymap.set("n", "grn", vim.lsp.buf.rename, opts) -- smart rename
@@ -60,7 +60,7 @@ return {
         keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
 
         opts.desc = "Line diagnostics"
-        keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
+        keymap.set("n", "<leader>xx", vim.diagnostic.open_float, opts) -- show diagnostics for line
 
         opts.desc = "Previous diagnostic"
         keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
