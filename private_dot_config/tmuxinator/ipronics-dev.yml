@@ -1,6 +1,6 @@
-# /home/ricarvid/.config/tmuxinator/ipronics-dev.yml
+# /home/ricarvid/.config/tmuxinator/dev.yml
 
-name: ipronics-dev
+name: dev
 root: ~/src
 
 # Optional tmux socket
@@ -50,15 +50,16 @@ windows:
       panes:
         -
         -
-  - editor:
-      panes:
-        - editor:
-            -
-      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
-      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
-      # synchronize: after
   - notes:
       panes:
         - editor:
             - cd ~/vaults/work/
             - nvim
+  - editor:
+      panes:
+        - editor:
+            -
+  - editor:
+      panes:
+        - editor:
+            -
