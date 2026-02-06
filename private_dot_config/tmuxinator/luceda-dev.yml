@@ -52,7 +52,7 @@ windows:
         -
   - notes:
       panes:
-        - editor:
+        - notes:
             - cd ~/vaults/luceda/
             - nvim
   - editor:
