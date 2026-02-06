@@ -7,9 +7,9 @@ opt.relativenumber = true -- show relative line numbers
 opt.number = true -- shows absolute line number on cursor line (when relative number is on)
 
 -- Limit line length to a given number of chars
-opt.textwidth = 200
+opt.textwidth = 120
 -- Highlight column given by the limit above
-opt.colorcolumn = "200"
+opt.colorcolumn = "120"
 -- Enable wrapping for long lines
 opt.wrap = true
 -- Enable wrapping at boundaries
