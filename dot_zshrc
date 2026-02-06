@@ -203,4 +203,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
+# Pixi config
 export PATH="/home/dsj/.pixi/bin:$PATH"
+autoload -Uz compinit && compinit  # redundant with Oh My Zsh
+eval "$(pixi completion --shell zsh)"

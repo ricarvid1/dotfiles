@@ -4,7 +4,4 @@ return {
   opts = {
     autosave = true,
   },
-  config = function()
-    vim.keymap.set("n", "<leader>wr", "<cmd>SessionToggle<cr>", { desc = "Restore session" })
-  end,
 }
