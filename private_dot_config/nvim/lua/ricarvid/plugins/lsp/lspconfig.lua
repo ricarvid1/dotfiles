@@ -31,11 +31,11 @@ return {
         opts.desc = "Go to Declaration"
         keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
 
-        opts.desc = "Go to LSP Definitions"
-        keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, opts) -- show lsp definitions
+        -- opts.desc = "Go to LSP Definitions"
+        -- keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, opts) -- show lsp definitions
 
-        opts.desc = "Go to LSP Implementations"
-        keymap.set("n", "gi", require("telescope.builtin").lsp_implementations, opts) -- show lsp implementations
+        -- opts.desc = "Go to LSP Implementations"
+        -- keymap.set("n", "gi", require("telescope.builtin").lsp_implementations, opts) -- show lsp implementations
 
         opts.desc = "Show LSP type definitions"
         keymap.set("n", "gt", require("telescope.builtin").lsp_type_definitions, opts) -- show lsp type definitions
@@ -115,6 +115,7 @@ return {
     --  - settings (table): Override the default settings passed when initializing the server.
     vim.lsp.enable("pyright")
     vim.lsp.enable("marksman")
+    vim.lsp.enable("ts_ls")
     vim.lsp.enable("texlab")
     -- rust_analyzer = {},
     vim.lsp.config("lua_ls", {
