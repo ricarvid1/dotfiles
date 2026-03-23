@@ -2,16 +2,17 @@ vim.g.netrw_liststyle = 3
 
 local opt = vim.opt -- for conciseness
 
+-- Time waiting
+-- How long to wait for a key code (e.g., arrow keys) to complete
+opt.ttimeoutlen = 50
 -- line numbers
 opt.relativenumber = true -- show relative line numbers
 opt.number = true -- shows absolute line number on cursor line (when relative number is on)
 
 -- Limit line length to a given number of chars
-opt.textwidth = 120
+-- opt.textwidth = 120
 -- Highlight column given by the limit above
 opt.colorcolumn = "120"
--- Enable wrapping for long lines
-opt.wrap = true
 -- Enable wrapping at boundaries
 opt.linebreak = true
 
