@@ -13,6 +13,8 @@ return {
         lua = { "stylua" },
         python = { "ruff_format", "ruff_fix" },
         tex = { "latexindent" },
+        c = { "clang-format" },
+        cpp = { "clang-format" },
         bib = { "bibtex-tidy" },
       },
       formatters = {
