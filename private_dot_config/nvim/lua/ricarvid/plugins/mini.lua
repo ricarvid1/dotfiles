@@ -15,5 +15,6 @@ return {
     require("mini.icons").setup()
     -- Session management
     -- require("mini.sessions").setup()
+    require("mini.diff").setup()
   end,
 }
