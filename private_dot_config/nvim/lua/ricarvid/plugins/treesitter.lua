@@ -28,6 +28,7 @@ return {
       "gitignore",
       "vimdoc",
       "python",
+      "yaml",
     },
     -- incremental_selection
     incremental_selection = {
