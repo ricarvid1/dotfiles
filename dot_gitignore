@@ -3,6 +3,10 @@
 tags
 # dav-skratches
 sk-*.py
-/scratches
+/scratch
 # vscode
 .vscode/
+# init-ipkiss
+init-ipkiss.sh
+# gemini
+GEMINI.md
