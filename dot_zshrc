@@ -114,6 +114,10 @@ alias cz="chezmoi"
 alias upd="sudo apt update"
 alias upg="sudo apt upgrade"
 alias arm="sudo apt autoremove"
+alias v="nvim"
+alias gb="git branch --all | fzf"
+# alias gcf="git checkout ${git branch --all | fzf}"
+alias oc="opencode -c"
 # ---- Eza (better ls) -----
 alias ls="eza --icons=always"
 
@@ -129,6 +133,7 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('${HOME}/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -161,14 +166,16 @@ unset __mamba_setup
 # ---- NVIM -----
 # Add nvim to path
 export PATH=$PATH:/opt/nvim/
+# Add local bin to path
+export PATH=$PATH:$HOME/.local/bin/
 # Add nvim config var
 export NVIM_CFG=$HOME/.config/nvim/
 # ---- TEXLIVE -----
 # export PATH=$PATH:$HOME/Programs/texlive/2025/bin/x86_64-linux
 # export MANPATH=$HOME/Programs/texlive/2025/texmf-dist/doc/man/:$MANPATH
 # export INFOPATH=$HOME/Programs/texlive/2025/texmf-dist/doc/info/:$INFOPATH
-# gemini cli 
-export GOOGLE_CLOUD_PROJECT="gemini-api-developers"
+# Load local configuration
+[[ -f ~/.local_conf ]] && source ~/.local_conf
 # history setup
 HISTFILE=$HOME/.zhistory
 SAVEHIST=1000
@@ -207,3 +214,18 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="/home/dsj/.pixi/bin:$PATH"
 autoload -Uz compinit && compinit  # redundant with Oh My Zsh
 eval "$(pixi completion --shell zsh)"
+# Keymaps
+function pxsh() {
+    # default to current directory if no path is given
+    local manifest_path="${1:-.}"
+    eval "$(pixi shell-hook --manifest-path $manifest_path)"
+}
+alias pxr="pixi run"
+alias pxb="pixi run build"
+alias pxt="pixi run test"
+alias pxc="pixi run clean"
+alias pxbc="pixi run build-caphe"
+
+# opencode
+export PATH=/home/dsj/.opencode/bin:$PATH
+eval "$(tv init zsh)"
