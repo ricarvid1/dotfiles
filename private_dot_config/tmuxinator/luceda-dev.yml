@@ -50,19 +50,24 @@ windows:
       panes:
         -
         -
-  - notes:
+  - gemini:
       panes:
-        - notes:
-            - cd ~/vaults/luceda/
-            - nvim
+        - gemini
   - editor:
       panes:
         - editor:
-            -
+            - cd caphe
+            - export PYTHONPATH=$(pwd):$PYTHONPATH
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
   - editor:
       panes:
         - editor:
-            -
+            - cd ipkiss
+            - export PYTHONPATH=$(pwd):$PYTHONPATH
+  - notes:
+      panes:
+        - notes:
+            - cd ~/vaults/luceda/
+            - nvim
