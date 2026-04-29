@@ -29,7 +29,7 @@ return {
       -- opts config
       require("codecompanion").setup(opts)
       -- Configuration
-      vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
+      vim.keymap.set({ "n", "v" }, "<leader>cg", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
       vim.keymap.set({ "n", "v" }, "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
       vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
 
