@@ -1,7 +1,7 @@
 # /home/ricarvid/.config/tmuxinator/luceda-dev.yml
 
 name: luceda-dev
-root: ~/src
+root: ~/src/lcda
 
 # Optional tmux socket
 # socket_name: foo
@@ -50,14 +50,13 @@ windows:
       panes:
         -
         -
-  - gemini:
+  - opencode:
       panes:
-        - gemini
+        - opencode -c
   - editor:
       panes:
         - editor:
             - cd caphe
-            - export PYTHONPATH=$(pwd):$PYTHONPATH
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
@@ -65,9 +64,11 @@ windows:
       panes:
         - editor:
             - cd ipkiss
-            - export PYTHONPATH=$(pwd):$PYTHONPATH
   - notes:
       panes:
         - notes:
             - cd ~/vaults/luceda/
             - nvim
+  - Platero:
+      panes:
+        - opencode -c
