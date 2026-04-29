@@ -90,6 +90,8 @@ plugins=(
 	)
 
 source $ZSH/oh-my-zsh.sh
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 
 # User configuration
 
@@ -116,14 +118,18 @@ alias upg="sudo apt upgrade"
 alias arm="sudo apt autoremove"
 alias v="nvim"
 alias gb="git branch --all | fzf"
-# alias gcf="git checkout ${git branch --all | fzf}"
+gcu() {
+  local branch=$(git branch --all --format="%(refname:short)" | fzf)
+  [[ -n "$branch" ]] && git checkout "$branch"
+}
 alias oc="opencode -c"
+alias ocd="opencode"
 # ---- Eza (better ls) -----
 alias ls="eza --icons=always"
 
 # ---- Zoxide (better cd) ----
 eval "$(zoxide init zsh)"
-alias cd="z"
+# alias cd="z"
 # ---- Yazi (better file manager) ----
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
@@ -174,7 +180,7 @@ export NVIM_CFG=$HOME/.config/nvim/
 # export PATH=$PATH:$HOME/Programs/texlive/2025/bin/x86_64-linux
 # export MANPATH=$HOME/Programs/texlive/2025/texmf-dist/doc/man/:$MANPATH
 # export INFOPATH=$HOME/Programs/texlive/2025/texmf-dist/doc/info/:$INFOPATH
-# Load local configuration
+# Load local configuration and secrets
 [[ -f ~/.local_conf ]] && source ~/.local_conf
 # history setup
 HISTFILE=$HOME/.zhistory
@@ -229,3 +235,5 @@ alias pxbc="pixi run build-caphe"
 # opencode
 export PATH=/home/dsj/.opencode/bin:$PATH
 eval "$(tv init zsh)"
+
+. "$HOME/.local/bin/env"
