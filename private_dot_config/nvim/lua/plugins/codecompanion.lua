@@ -1,23 +1,44 @@
 return {
   {
     "olimorris/codecompanion.nvim",
-    version = "^18.0.0",
+    version = "^19.0.0",
     opts = {
+      adapters = {
+        http = {
+          gemini = function()
+            return require("codecompanion.adapters").extend("gemini", {
+              schema = {
+                model = {
+                  default = "gemini-3.6-flash",
+                },
+              },
+            })
+          end,
+        },
+      },
       interactions = {
         chat = {
           -- You can specify an adapter by name and model (both ACP and HTTP)
-          adapter = "gemini",
-          model = "gemini-3-flash-preview",
+          adapter = "opencode",
         },
         inline = {
           adapter = "gemini",
-          model = "gemini-3-flash-preview",
         },
         cmd = {
           adapter = "gemini",
         },
         background = {
           adapter = "gemini",
+        },
+        cli = {
+          agent = "opencode",
+        },
+      },
+      display = {
+        chat = {
+          window = {
+            width = 0.4,
+          },
         },
       },
     },
