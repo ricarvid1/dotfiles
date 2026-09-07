@@ -218,6 +218,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # Pixi config
 export PATH="/home/dsj/.pixi/bin:$PATH"
+export PYTHONNOUSERSITE=1
 autoload -Uz compinit && compinit  # redundant with Oh My Zsh
 eval "$(pixi completion --shell zsh)"
 # Keymaps
@@ -226,6 +227,7 @@ function pxsh() {
     local manifest_path="${1:-.}"
     eval "$(pixi shell-hook --manifest-path $manifest_path)"
 }
+alias pxs="pixi shell"
 alias pxr="pixi run"
 alias pxb="pixi run build"
 alias pxt="pixi run test"
@@ -234,6 +236,6 @@ alias pxbc="pixi run build-caphe"
 
 # opencode
 export PATH=/home/dsj/.opencode/bin:$PATH
-eval "$(tv init zsh)"
 
 . "$HOME/.local/bin/env"
+
