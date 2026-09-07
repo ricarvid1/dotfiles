@@ -50,20 +50,6 @@ windows:
       panes:
         -
         -
-  - opencode:
-      panes:
-        - opencode -c
-  - editor:
-      panes:
-        - editor:
-            - cd caphe
-      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
-      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
-      # synchronize: after
-  - editor:
-      panes:
-        - editor:
-            - cd ipkiss
   - notes:
       panes:
         - notes:
@@ -72,3 +58,14 @@ windows:
   - Platero:
       panes:
         - opencode -c
+  - editor:
+      panes:
+        - editor:
+            - ls
+      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
+      # synchronize: after
+  - editor:
+      panes:
+        - editor:
+            - ls
