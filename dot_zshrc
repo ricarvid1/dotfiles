@@ -9,7 +9,7 @@ fi
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Set name of the theme to load
-source ~/powerlevel10k/powerlevel10k.zsh-theme
+[[ -f ~/powerlevel10k/powerlevel10k.zsh-theme ]] && source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -203,24 +203,29 @@ autoload -U compaudit compinit
 export PATH="$HOME/.rbenv/bin:$PATH"
 
 # Added by `rbenv init` on Thu Jan  9 06:48:56 PM CET 2025
-eval "$(rbenv init - --no-rehash zsh)"
+command -v rbenv >/dev/null && eval "$(rbenv init - --no-rehash zsh)"
 
-PATH="/home/ricarvid/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/ricarvid/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/ricarvid/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/ricarvid/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/ricarvid/perl5"; export PERL_MM_OPT;
+PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# nvm (Arch package lives in /usr/share/nvm, upstream installer uses $HOME/.nvm)
+if [ -s /usr/share/nvm/init-nvm.sh ]; then
+  . /usr/share/nvm/init-nvm.sh
+else
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
 
 
 # Pixi config
-export PATH="/home/dsj/.pixi/bin:$PATH"
+export PATH="$HOME/.pixi/bin:$PATH"
 export PYTHONNOUSERSITE=1
 autoload -Uz compinit && compinit  # redundant with Oh My Zsh
-eval "$(pixi completion --shell zsh)"
+command -v pixi >/dev/null && eval "$(pixi completion --shell zsh)"
 # Keymaps
 function pxsh() {
     # default to current directory if no path is given
@@ -235,7 +240,7 @@ alias pxc="pixi run clean"
 alias pxbc="pixi run build-caphe"
 
 # opencode
-export PATH=/home/dsj/.opencode/bin:$PATH
+export PATH=$HOME/.opencode/bin:$PATH
 
-. "$HOME/.local/bin/env"
+[[ -f "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
 
