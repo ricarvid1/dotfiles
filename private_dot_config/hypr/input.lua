@@ -8,6 +8,7 @@ hl.config({
     -- CapsLock -> Escape, Shift+CapsLock -> regular CapsLock
     -- Swap Left Ctrl and Left Alt
     kb_options = "caps:escape_shifted_capslock,shift:both_capslock_cancel,ctrl:swap_lalt_lctl",
+    natural_scroll = true,
     touchpad = {
       natural_scroll = true,
     },
