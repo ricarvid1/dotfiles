@@ -46,4 +46,5 @@ o.bind("SUPER + SHIFT + L", "Swap window right", hl.dsp.window.swap({ direction 
 -- Displaced defaults, re-homed:
 o.bind("SUPER + ALT + J", "Toggle window split", hl.dsp.layout("togglesplit"))
 o.bind("SUPER + ALT + L", "Toggle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
-o.bind("SUPER + ALT + SHIFT + K", "Keybindings", "omarchy-menu-keybindings")
+hl.unbind("SUPER + ALT + SHIFT + K")
+o.bind("SUPER + SHIFT + I", "Keybindings", "omarchy-menu-keybindings")
