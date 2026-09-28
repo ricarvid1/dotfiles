@@ -122,8 +122,8 @@ gcu() {
   local branch=$(git branch --all --format="%(refname:short)" | fzf)
   [[ -n "$branch" ]] && git checkout "$branch"
 }
-alias oc="opencode -c"
-alias ocd="opencode"
+alias oc="opencode -c --port"
+alias ocd="opencode --port"
 # ---- Eza (better ls) -----
 alias ls="eza --icons=always"
 
