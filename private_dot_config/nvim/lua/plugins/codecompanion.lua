@@ -9,7 +9,7 @@ return {
             return require("codecompanion.adapters").extend("gemini", {
               schema = {
                 model = {
-                  default = "gemini-3.6-flash",
+                  default = "gemini-3.5-flash",
                 },
               },
             })
@@ -19,7 +19,8 @@ return {
       interactions = {
         chat = {
           -- You can specify an adapter by name and model (both ACP and HTTP)
-          adapter = "opencode",
+          adapter = "gemini",
+          -- adapter = "opencode",
         },
         inline = {
           adapter = "gemini",
