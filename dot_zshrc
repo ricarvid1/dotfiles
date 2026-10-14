@@ -127,7 +127,7 @@ gcu() {
 fzy() {
   local target="${1:-.}"
   local file
-  file=$(fd -t f . "$target" 2>/dev/null | fzf) || return 0
+  file=$(fd -t f --no-ignore --hidden --exclude .git . "$target" 2>/dev/null | fzf) || return 0
   local full_path
   full_path=$(realpath "$file")
   echo "$full_path"
