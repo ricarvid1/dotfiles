@@ -47,7 +47,11 @@ switch_tab = "prefix+1..9"
 copy_mode = "prefix+esc"
 
 # Clear pane (tmux: bind C-l)
-clear_pane = "prefix+ctrl+l"
+[[keys.command]]
+key = "prefix+ctrl+l"
+type = "shell"
+command = "herdr pane send-keys \"$HERDR_ACTIVE_PANE_ID\" ctrl+l"
+description = "Clear pane"
 
 # Launch luceda-dev workspace session
 [[keys.command]]
