@@ -1,2 +1,3 @@
 .config/nvim/lazy-lock.json
 .config/nvim.dav/lazy-lock.json
+.config/hypr/monitors.lua
