@@ -1,0 +1,13 @@
+[Unit]
+Description=Auto-commit and Push Luceda Vault Changes with OpenCode
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/notes-autocommit.sh
+Environment="PATH=%h/.opencode/bin:%h/.local/bin:/usr/local/bin:/usr/bin:/bin"
+Environment="HOME=%h"
+Environment="SSH_AUTH_SOCK=%t/keyring/ssh"
+PassEnvironment=SSH_AUTH_SOCK
+StandardOutput=journal
+StandardError=journal

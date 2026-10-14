@@ -1,0 +1,10 @@
+[Unit]
+Description=Trigger Luceda Vault Auto-Commit at 14:00 and 18:00 daily
+
+[Timer]
+OnCalendar=*-*-* 14:00:00
+OnCalendar=*-*-* 18:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
