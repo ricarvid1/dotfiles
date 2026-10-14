@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$HOME/src/lcda"
+VAULT="$HOME/vaults/luceda"
+
+# Check if workspace already exists
+EXISTING_WS=$(herdr workspace list | jq -r '.result.workspaces[]? | select(.label == "luceda-dev") | .workspace_id' | head -n 1)
+
+if [[ -n "${EXISTING_WS:-}" && "${1:-}" != "--force" && "${1:-}" != "-f" ]]; then
+  echo "Workspace 'luceda-dev' already exists (${EXISTING_WS}). Focusing..."
+  herdr workspace focus "$EXISTING_WS"
+  exit 0
+fi
+
+echo "Creating 'luceda-dev' workspace in Herdr..."
+
+# 1. Create Workspace with initial tab
+WS_JSON=$(herdr workspace create --label "luceda-dev" --cwd "$ROOT")
+WS_ID=$(echo "$WS_JSON" | jq -r '.result.workspace.workspace_id')
+TAB1_ID=$(echo "$WS_JSON" | jq -r '.result.tab.tab_id')
+PANE1_ID=$(echo "$WS_JSON" | jq -r '.result.root_pane.pane_id')
+
+# Configure Tab 1: terminal (2 side-by-side panes)
+herdr tab rename "$TAB1_ID" "terminal"
+herdr pane split --pane "$PANE1_ID" --direction right --cwd "$ROOT" --no-focus
+
+# 2. Configure Tab 2: notes (nvim in ~/vaults/luceda)
+TAB2_JSON=$(herdr tab create --workspace "$WS_ID" --label "notes" --cwd "$VAULT" --no-focus)
+PANE2_ID=$(echo "$TAB2_JSON" | jq -r '.result.root_pane.pane_id')
+herdr pane run "$PANE2_ID" "nvim"
+
+# 3. Configure Tab 3: Platero (opencode -c in ~/src/lcda)
+TAB3_JSON=$(herdr tab create --workspace "$WS_ID" --label "Platero" --cwd "$ROOT" --no-focus)
+PANE3_ID=$(echo "$TAB3_JSON" | jq -r '.result.root_pane.pane_id')
+herdr pane rename "$PANE3_ID" "Platero"
+herdr pane run "$PANE3_ID" "opencode -c"
+
+# 4. Configure Tab 4: editor-1 (ls in ~/src/lcda)
+TAB4_JSON=$(herdr tab create --workspace "$WS_ID" --label "editor-1" --cwd "$ROOT" --no-focus)
+PANE4_ID=$(echo "$TAB4_JSON" | jq -r '.result.root_pane.pane_id')
+herdr pane run "$PANE4_ID" "ls"
+
+# 5. Configure Tab 5: editor-2 (ls in ~/src/lcda)
+TAB5_JSON=$(herdr tab create --workspace "$WS_ID" --label "editor-2" --cwd "$ROOT" --no-focus)
+PANE5_ID=$(echo "$TAB5_JSON" | jq -r '.result.root_pane.pane_id')
+herdr pane run "$PANE5_ID" "ls"
+
+# Focus the workspace and first tab
+herdr workspace focus "$WS_ID"
+herdr tab focus "$TAB1_ID"
+
+echo "Workspace 'luceda-dev' ($WS_ID) initialized successfully!"

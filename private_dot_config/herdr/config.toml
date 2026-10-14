@@ -1,0 +1,58 @@
+onboarding = false
+
+[theme]
+name = "one-dark"
+
+[terminal]
+default_shell = "/bin/zsh"
+new_cwd = "follow"
+
+[ui]
+tab_bar_position = "top"
+mouse_capture = true
+copy_on_select = true
+
+[session]
+resume_agents_on_restore = true
+
+[keys]
+# Prefix key
+prefix = "ctrl+b"
+
+# Config reload (tmux: bind r)
+reload_config = "prefix+r"
+
+# Pane splitting (tmux: bind / and bind -)
+split_vertical = "prefix+/"
+split_horizontal = "prefix+minus"
+
+# Pane movement (direct Ctrl+h, j, k, l without prefix)
+focus_pane_left = "ctrl+h"
+focus_pane_down = "ctrl+j"
+focus_pane_up = "ctrl+k"
+focus_pane_right = "ctrl+l"
+
+# Pane resizing (tmux: bind H, J, K, L)
+resize_pane_left = "prefix+shift+h"
+resize_pane_down = "prefix+shift+j"
+resize_pane_up = "prefix+shift+k"
+resize_pane_right = "prefix+shift+l"
+
+# Tab / Window navigation (tmux: bind C-h and C-k)
+previous_tab = "prefix+ctrl+h"
+next_tab = "prefix+ctrl+k"
+switch_tab = "prefix+1..9"
+
+# Copy mode (tmux: bind Escape)
+copy_mode = "prefix+esc"
+
+# Clear pane (tmux: bind C-l)
+clear_pane = "prefix+ctrl+l"
+
+# Launch luceda-dev workspace session
+[[keys.command]]
+key = "prefix+alt+l"
+type = "shell"
+command = "herdr-luceda"
+description = "Launch or focus luceda-dev workspace"
+
