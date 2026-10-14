@@ -119,8 +119,24 @@ alias arm="sudo apt autoremove"
 alias v="nvim"
 alias gb="git branch --all | fzf"
 gcu() {
-  local branch=$(git branch --all --format="%(refname:short)" | fzf)
-  [[ -n "$branch" ]] && git checkout "$branch"
+  local branch
+  branch=$(git branch --all --format="%(refname:short)" | grep -v '/HEAD$' | fzf) || return 0
+  [[ -z "$branch" ]] && return 0
+
+  local remote
+  for remote in $(git remote 2>/dev/null); do
+    if [[ "$branch" == "$remote/"* ]]; then
+      local local_name="${branch#$remote/}"
+      if git show-ref --verify --quiet "refs/heads/$local_name"; then
+        git switch "$local_name"
+      else
+        git switch --track "$branch"
+      fi
+      return
+    fi
+  done
+
+  git switch "$branch"
 }
 
 # Fuzzy yank full path
