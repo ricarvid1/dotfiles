@@ -2,7 +2,7 @@
 set -euo pipefail
 
 REPO_DIR="${VAULT_DIR:-$HOME/vaults/luceda}"
-OPENCODE_BIN="${OPENCODE_BIN:-$HOME/.opencode/bin/opencode}"
+OPENCODE_BIN="${OPENCODE_BIN:-$HOME/.local/bin/opencode}"
 
 export PATH="$HOME/.opencode/bin:$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
 

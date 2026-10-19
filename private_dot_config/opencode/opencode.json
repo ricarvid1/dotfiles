@@ -1,0 +1,27 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "update": "disable",
+  "references": {
+    "luceda": {
+      "path": "~/vaults/luceda",
+      "description": "Luceda vault notes and documentation"
+    }
+  },
+  "permissions": [
+    {
+      "action": "external_directory",
+      "resource": "~/vaults/luceda*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "~/vaults/luceda*",
+      "effect": "allow"
+    },
+    {
+      "action": "edit",
+      "resource": "~/vaults/luceda*",
+      "effect": "allow"
+    }
+  ]
+}
