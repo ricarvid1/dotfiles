@@ -11,13 +11,28 @@ if [ -z "${SSH_AUTH_SOCK:-}" ] && [ -S "${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/k
     export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/keyring/ssh"
 fi
 
+NOTIFY_BIN="$HOME/.local/bin/notify-desktop.sh"
+APP_NAME="notes"
+
+notify() {
+    local urgency="$1" title="$2" body="$3"
+    [ -x "$NOTIFY_BIN" ] || return 0
+    "$NOTIFY_BIN" --app "$APP_NAME" -u "$urgency" "$title" "$body" >/dev/null 2>&1 || true
+}
+
+notify_failure() {
+    notify critical "Luceda vault sync failed" "$1"
+}
+
 if [ ! -d "$REPO_DIR/.git" ]; then
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERROR: $REPO_DIR is not a git repository." >&2
+    notify_failure "$REPO_DIR is not a git repository"
     exit 1
 fi
 
 if [ ! -x "$OPENCODE_BIN" ]; then
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERROR: opencode binary not found at $OPENCODE_BIN" >&2
+    notify_failure "opencode binary not found at $OPENCODE_BIN"
     exit 1
 fi
 
@@ -71,20 +86,30 @@ Follow these rules strictly:
 7. Do NOT run git push (pushing to origin will be handled automatically by the runner script).
 8. Do NOT amend, squash, or rebase any existing commits.'
 
-    (
+    if ! (
         cd "$REPO_DIR"
         "$OPENCODE_BIN" run \
             --auto \
             "$PROMPT"
-    )
+    ); then
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERROR: opencode auto-commit failed." >&2
+        notify_failure "opencode auto-commit failed"
+        exit 1
+    fi
 fi
 
 # Push commits to remote if branch is ahead
 UNPUSHED="$(count_unpushed)"
 if [ "$UNPUSHED" -gt 0 ]; then
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] Pushing $UNPUSHED commit(s) to remote..."
-    git -C "$REPO_DIR" push origin HEAD
+    if ! git -C "$REPO_DIR" push origin HEAD; then
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERROR: push to remote failed." >&2
+        notify_failure "Push to origin failed"
+        exit 1
+    fi
+    BRANCH="$(git -C "$REPO_DIR" symbolic-ref --short HEAD 2>/dev/null || echo main)"
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] Successfully pushed to remote."
+    notify normal "Luceda vault synced" "$UNPUSHED commit(s) pushed to origin/$BRANCH"
 else
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] No unpushed commits."
 fi
