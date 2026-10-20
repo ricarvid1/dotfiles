@@ -6,8 +6,21 @@ BRANCH="${CHEZMOI_AUTOCOMMIT_BRANCH:-main}"
 
 export PATH="$HOME/.opencode/bin:$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
 
+NOTIFY_BIN="$HOME/.local/bin/notify-desktop.sh"
+APP_NAME="chezmoi"
+
 log() {
     printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
+}
+
+notify() {
+    local urgency="$1" title="$2" body="$3"
+    [ -x "$NOTIFY_BIN" ] || return 0
+    "$NOTIFY_BIN" --app "$APP_NAME" -u "$urgency" "$title" "$body" >/dev/null 2>&1 || true
+}
+
+notify_failure() {
+    notify critical "Dotfiles sync failed" "$1"
 }
 
 # Ensure SSH agent socket is available for git push
@@ -17,11 +30,13 @@ fi
 
 if ! SOURCE_DIR="$(chezmoi source-path 2>/dev/null)"; then
     log "ERROR: could not determine the chezmoi source directory."
+    notify_failure "Could not determine the chezmoi source directory"
     exit 1
 fi
 
 if [ ! -d "$SOURCE_DIR/.git" ]; then
     log "ERROR: $SOURCE_DIR is not a git repository."
+    notify_failure "$SOURCE_DIR is not a git repository"
     exit 1
 fi
 
@@ -35,6 +50,7 @@ done
 
 if [ ! -x "$OPENCODE_BIN" ]; then
     log "ERROR: opencode binary not found at $OPENCODE_BIN"
+    notify_failure "opencode binary not found at $OPENCODE_BIN"
     exit 1
 fi
 
@@ -49,7 +65,11 @@ fi
 # managed by chezmoi are re-added; untracked files are never picked up.
 if [ -n "$(chezmoi status)" ]; then
     log "Live configuration drift detected. Running chezmoi re-add..."
-    chezmoi re-add
+    if ! chezmoi re-add; then
+        log "ERROR: chezmoi re-add failed."
+        notify_failure "chezmoi re-add failed"
+        exit 1
+    fi
 else
     log "No live configuration drift."
 fi
@@ -80,14 +100,19 @@ Follow these rules strictly:
 EOF
 )"
 
-    (
+    if ! (
         cd "$SOURCE_DIR"
         "$OPENCODE_BIN" run --auto "$PROMPT"
-    )
+    ); then
+        log "ERROR: opencode auto-commit failed."
+        notify_failure "opencode auto-commit failed"
+        exit 1
+    fi
 
     if [ -n "$(git -C "$SOURCE_DIR" status --porcelain)" ]; then
         log "ERROR: opencode left uncommitted changes; refusing to sync with the remote."
         git -C "$SOURCE_DIR" status --porcelain >&2
+        notify_failure "opencode left changes uncommitted"
         exit 1
     fi
 
@@ -104,6 +129,7 @@ if [ "$REMOTE_AVAILABLE" = true ]; then
     if ! git -C "$SOURCE_DIR" rebase "origin/$BRANCH"; then
         git -C "$SOURCE_DIR" rebase --abort || true
         log "ERROR: rebase onto origin/$BRANCH failed (conflict). Aborted; resolve manually."
+        notify_failure "Rebase onto origin/$BRANCH conflicted; resolve manually"
         exit 1
     fi
 fi
@@ -113,7 +139,11 @@ AFTER_HEAD="$(git -C "$SOURCE_DIR" rev-parse HEAD)"
 # Propagate remote changes to the live files.
 if [ "$BEFORE_HEAD" != "$AFTER_HEAD" ]; then
     log "Remote changes integrated. Applying them to the live configuration..."
-    chezmoi apply --force
+    if ! chezmoi apply --force; then
+        log "ERROR: chezmoi apply failed after integrating remote changes."
+        notify_failure "Applying remote changes to live files failed"
+        exit 1
+    fi
     systemctl --user daemon-reload || log "WARNING: systemctl --user daemon-reload failed."
 else
     log "No remote changes to apply."
@@ -124,10 +154,16 @@ UNPUSHED="$(git -C "$SOURCE_DIR" rev-list --count "@{u}..HEAD" 2>/dev/null || ec
 if [ "$UNPUSHED" -gt 0 ]; then
     if [ "$REMOTE_AVAILABLE" = false ]; then
         log "WARNING: $UNPUSHED commit(s) pending; cannot push while offline."
+        notify_failure "Offline: $UNPUSHED commit(s) pending; will push on the next run"
     else
         log "Pushing $UNPUSHED commit(s) to remote..."
-        git -C "$SOURCE_DIR" push origin HEAD
+        if ! git -C "$SOURCE_DIR" push origin HEAD; then
+            log "ERROR: push to origin/$BRANCH failed."
+            notify_failure "Push to origin/$BRANCH failed"
+            exit 1
+        fi
         log "Successfully pushed to remote."
+        notify normal "Dotfiles synced" "$UNPUSHED commit(s) pushed to origin/$BRANCH"
     fi
 else
     log "No unpushed commits."
