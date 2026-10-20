@@ -1,3 +1,15 @@
 .config/nvim/lazy-lock.json
 .config/nvim.dav/lazy-lock.json
 .config/hypr/monitors.lua
+
+# Omarchy regenerates the theme spec symlink per theme
+.config/nvim/lua/plugins/theme.lua
+# omarchy-nvim migration backups
+.config/nvim/**/*.bak.*
+
+# herdr runtime state
+.config/herdr/session.json
+.config/herdr/release-notes.json
+.config/herdr/.plugins.lock
+.config/herdr/*.log
+.config/herdr/*.sock
