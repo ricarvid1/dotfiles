@@ -1,7 +1,7 @@
 # Dotfiles
 
 Personal Linux configuration managed with [chezmoi][chezmoi], built on
-[Omarchy][omarchy] (Arch Linux + Hyprland) with a focus on agentic coding.
+[Omarchy][omarchy] (Arch Linux + Hyprland), but not limited to it, with a focus on agentic coding.
 
 ## Stack
 
@@ -28,8 +28,7 @@ theme, default shell, session restore, and a workspace launcher script. Runtime
 state and logs are ignored.
 
 **Agentic coding** — OpenCode is the main agent, with a global config and Neovim
-integration through opencode.nvim. CodeCompanion uses Gemini and the OpenCode
-CLI. Shell aliases start OpenCode sessions, and the automation scripts use
+integration through opencode.nvim. Shell aliases start OpenCode sessions, and the automation scripts use
 OpenCode to write commits.
 
 **Neovim** — LazyVim with language and AI extras plus personal plugin overrides.
