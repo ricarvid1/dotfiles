@@ -81,16 +81,13 @@ if [ -e "$CAPTURE_MARKER" ]; then
 fi
 
 # Never let re-add overwrite edits made directly in the source tree: live state
-# always wins in `chezmoi re-add`, so mixing the two silently loses work.
+# always wins in `chezmoi re-add`, so mixing the two silently loses work. The
+# rollback below is only safe because the tree is known to be clean here.
 if [ -n "$(git -C "$SOURCE_DIR" status --porcelain --untracked-files=no)" ]; then
-    if [ "${CHEZMOI_AUTOCOMMIT_FORCE:-0}" = "1" ]; then
-        log "WARNING: uncommitted source edits present; continuing because CHEZMOI_AUTOCOMMIT_FORCE=1."
-    else
-        log "ERROR: $SOURCE_DIR has uncommitted edits. Commit or stash them first (re-add would overwrite them)."
-        git -C "$SOURCE_DIR" status --porcelain --untracked-files=no >&2
-        notify_failure "Uncommitted source edits; re-add would overwrite them"
-        exit 1
-    fi
+    log "ERROR: $SOURCE_DIR has uncommitted edits. Commit or stash them first (re-add would overwrite them)."
+    git -C "$SOURCE_DIR" status --porcelain --untracked-files=no >&2
+    notify_failure "Uncommitted source edits; re-add would overwrite them"
+    exit 1
 fi
 
 # Fetch first so we know whether the remote moved. Being offline is not fatal.
