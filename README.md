@@ -38,7 +38,13 @@ Older Neovim and Vim configs are kept for reference.
 highlighting, fzf, zoxide, eza, yazi, conda/mamba, and a few git helpers.
 
 **Terminals** — Alacritty, Kitty, Foot, and Ghostty, using Omarchy theme includes
-where supported.
+where supported. The config files themselves are owned by Omarchy, which rewrites
+the font family and size on every `omarchy font set` / `omarchy display text size`
+run, so they are not tracked: that value is machine-specific and would otherwise
+produce a commit each time the display changes. Personal settings live in the
+tracked `personal.toml` / `personal.ini` / `personal.conf` siblings, and
+`run_ensure-terminal-includes.sh` keeps the include lines in place across machines
+and Omarchy upgrades.
 
 **tmux** — tmux config with TPM plugins, plus tmuxinator project templates.
 

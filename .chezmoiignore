@@ -12,6 +12,16 @@
 # without this `chezmoi re-add` copies the stale ~/README.md over the repo README.
 README.md
 
+# Terminal configs owned by Omarchy: `omarchy font set` and
+# `omarchy display text size` rewrite the font family/size in these files, and
+# that value is machine-specific. Tracking them meant every monitor/text-size
+# change became a commit, so they are unmanaged. Personal settings live in the
+# managed personal.toml / personal.ini / personal.conf siblings instead.
+.config/alacritty/alacritty.toml
+.config/foot/foot.ini
+.config/ghostty/config
+.config/kitty/kitty.conf
+
 # herdr runtime state
 .config/herdr/session.json
 .config/herdr/release-notes.json

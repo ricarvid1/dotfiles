@@ -1,0 +1,22 @@
+# Personal Alacritty settings, tracked by chezmoi.
+#
+# This file is imported from ~/.config/alacritty/alacritty.toml, which Omarchy
+# owns: it rewrites the font family/size there on every `omarchy font set` and
+# `omarchy display text size` run. Keeping everything else here means font
+# changes never show up as dotfile drift.
+
+import = [
+    "~/.config/alacritty/themes/themes/coolnight.toml"
+]
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+padding.x = 10
+padding.y = 10
+
+decorations = "Buttonless"
+
+opacity = 0.8
+blur = true
