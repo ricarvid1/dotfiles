@@ -54,6 +54,45 @@ if [ ! -x "$OPENCODE_BIN" ]; then
     exit 1
 fi
 
+# Guard state left behind by an interrupted run. `chezmoi re-add` projects the
+# live files into the source tree; if a run dies between that capture and the
+# commit, the tree holds changes nobody chose to commit, and the next run would
+# commit and push them with an auto-written message. The marker makes that state
+# detectable, and a capture is always reproducible from the live files, so it is
+# safe to discard.
+CAPTURE_MARKER="$SOURCE_DIR/.git/autocommit-capture"
+
+rollback_capture() {
+    local stat
+    stat="$(git -C "$SOURCE_DIR" diff --stat HEAD || true)"
+    if [ -n "$stat" ]; then
+        log "Reverting captured changes (live files are untouched; the next run re-captures them):"
+        printf '%s\n' "$stat" >&2
+    fi
+    if ! git -C "$SOURCE_DIR" restore --source=HEAD --staged --worktree .; then
+        log "ERROR: could not revert captured changes automatically."
+    fi
+    rm -f "$CAPTURE_MARKER"
+}
+
+if [ -e "$CAPTURE_MARKER" ]; then
+    log "WARNING: a previous run was interrupted before committing. Restoring the source tree."
+    rollback_capture
+fi
+
+# Never let re-add overwrite edits made directly in the source tree: live state
+# always wins in `chezmoi re-add`, so mixing the two silently loses work.
+if [ -n "$(git -C "$SOURCE_DIR" status --porcelain --untracked-files=no)" ]; then
+    if [ "${CHEZMOI_AUTOCOMMIT_FORCE:-0}" = "1" ]; then
+        log "WARNING: uncommitted source edits present; continuing because CHEZMOI_AUTOCOMMIT_FORCE=1."
+    else
+        log "ERROR: $SOURCE_DIR has uncommitted edits. Commit or stash them first (re-add would overwrite them)."
+        git -C "$SOURCE_DIR" status --porcelain --untracked-files=no >&2
+        notify_failure "Uncommitted source edits; re-add would overwrite them"
+        exit 1
+    fi
+fi
+
 # Fetch first so we know whether the remote moved. Being offline is not fatal.
 REMOTE_AVAILABLE=true
 if ! git -C "$SOURCE_DIR" fetch --prune origin "$BRANCH"; then
@@ -68,9 +107,11 @@ fi
 DRIFT="$(chezmoi status | grep -vE '^ *R' || true)"
 if [ -n "$DRIFT" ]; then
     log "Live configuration drift detected. Running chezmoi re-add..."
+    : >"$CAPTURE_MARKER"
     if ! chezmoi re-add; then
         log "ERROR: chezmoi re-add failed."
-        notify_failure "chezmoi re-add failed"
+        rollback_capture
+        notify_failure "chezmoi re-add failed; source tree restored"
         exit 1
     fi
 else
@@ -108,14 +149,16 @@ EOF
         "$OPENCODE_BIN" run --auto "$PROMPT"
     ); then
         log "ERROR: opencode auto-commit failed."
-        notify_failure "opencode auto-commit failed"
+        rollback_capture
+        notify_failure "opencode auto-commit failed; captured changes reverted, will retry next run"
         exit 1
     fi
 
     if [ -n "$(git -C "$SOURCE_DIR" status --porcelain)" ]; then
         log "ERROR: opencode left uncommitted changes; refusing to sync with the remote."
         git -C "$SOURCE_DIR" status --porcelain >&2
-        notify_failure "opencode left changes uncommitted"
+        rollback_capture
+        notify_failure "opencode left changes uncommitted; captured changes reverted"
         exit 1
     fi
 
@@ -123,6 +166,8 @@ EOF
 else
     log "No uncommitted dotfile changes."
 fi
+
+rm -f "$CAPTURE_MARKER"
 
 # Rebase onto the remote when it has new commits. Using rebase (rather than a
 # merge) keeps the history linear and replays local commits on top.
