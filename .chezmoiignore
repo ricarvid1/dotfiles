@@ -7,6 +7,11 @@
 # omarchy-nvim migration backups
 .config/nvim/**/*.bak.*
 
+# Repo-only files that sit in the source root but must never be managed.
+# `chezmoi` treats every non-dot-prefixed file here as a target in $HOME, so
+# without this `chezmoi re-add` copies the stale ~/README.md over the repo README.
+README.md
+
 # herdr runtime state
 .config/herdr/session.json
 .config/herdr/release-notes.json
