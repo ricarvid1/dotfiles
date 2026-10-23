@@ -3,6 +3,7 @@ set -euo pipefail
 
 REPO_DIR="${VAULT_DIR:-$HOME/vaults/luceda}"
 OPENCODE_BIN="${OPENCODE_BIN:-$HOME/.local/bin/opencode}"
+OPENCODE_MODEL="${OPENCODE_MODEL:-google/gemini-3.8-flash}"
 
 export PATH="$HOME/.opencode/bin:$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
 
@@ -90,6 +91,7 @@ Follow these rules strictly:
         cd "$REPO_DIR"
         "$OPENCODE_BIN" run \
             --auto \
+            --model "$OPENCODE_MODEL" \
             "$PROMPT"
     ); then
         echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERROR: opencode auto-commit failed." >&2
