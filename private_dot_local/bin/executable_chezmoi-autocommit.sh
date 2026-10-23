@@ -63,7 +63,10 @@ fi
 
 # Capture live dotfile changes into the source state. Only files already
 # managed by chezmoi are re-added; untracked files are never picked up.
-if [ -n "$(chezmoi status)" ]; then
+# `chezmoi status` also lists pending run_ scripts as "R"; those always show up
+# and are not configuration drift, so they are filtered out here.
+DRIFT="$(chezmoi status | grep -vE '^ *R' || true)"
+if [ -n "$DRIFT" ]; then
     log "Live configuration drift detected. Running chezmoi re-add..."
     if ! chezmoi re-add; then
         log "ERROR: chezmoi re-add failed."
