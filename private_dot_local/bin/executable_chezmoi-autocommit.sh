@@ -2,6 +2,7 @@
 set -euo pipefail
 
 OPENCODE_BIN="${OPENCODE_BIN:-$HOME/.local/bin/opencode}"
+OPENCODE_MODEL="${OPENCODE_MODEL:-google/gemini-3.8-flash}"
 BRANCH="${CHEZMOI_AUTOCOMMIT_BRANCH:-main}"
 
 export PATH="$HOME/.opencode/bin:$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
@@ -143,7 +144,7 @@ EOF
 
     if ! (
         cd "$SOURCE_DIR"
-        "$OPENCODE_BIN" run --auto "$PROMPT"
+        "$OPENCODE_BIN" run --auto --model "$OPENCODE_MODEL" "$PROMPT"
     ); then
         log "ERROR: opencode auto-commit failed."
         rollback_capture
