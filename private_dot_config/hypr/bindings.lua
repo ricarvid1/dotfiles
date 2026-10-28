@@ -59,3 +59,5 @@ o.bind("SUPER + ALT + J", "Toggle window split", hl.dsp.layout("togglesplit"))
 o.bind("SUPER + ALT + L", "Toggle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
 hl.unbind("SUPER + ALT + SHIFT + K")
 o.bind("SUPER + SHIFT + I", "Keybindings", "omarchy-menu-keybindings")
+
+o.bind("SUPER + SHIFT + T", "Teams", { launch = "teams", focus = "Teams" })
