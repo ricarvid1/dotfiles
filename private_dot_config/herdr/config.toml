@@ -27,11 +27,11 @@ reload_config = "prefix+r"
 split_vertical = "prefix+/"
 split_horizontal = "prefix+minus"
 
-# Pane movement (direct Ctrl+h, j, k, l without prefix)
-focus_pane_left = "ctrl+h"
-focus_pane_down = "ctrl+j"
-focus_pane_up = "ctrl+k"
-focus_pane_right = "ctrl+l"
+# Pane movement: disabled built-in direct focus so Vim-aware navigation handles ctrl+h/j/k/l
+focus_pane_left = ""
+focus_pane_down = ""
+focus_pane_up = ""
+focus_pane_right = ""
 
 # Pane resizing (tmux: bind H, J, K, L)
 resize_pane_left = "prefix+shift+h"
@@ -46,6 +46,31 @@ switch_tab = "prefix+1..9"
 
 # Copy mode (tmux: bind Escape)
 copy_mode = "prefix+esc"
+
+# Vim-aware pane navigation (move between Neovim splits first, Herdr panes at edges)
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "local.vim-navigator.left"
+description = "Vim-aware pane left"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "local.vim-navigator.down"
+description = "Vim-aware pane down"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "local.vim-navigator.up"
+description = "Vim-aware pane up"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "local.vim-navigator.right"
+description = "Vim-aware pane right"
 
 # Clear pane (tmux: bind C-l)
 [[keys.command]]
