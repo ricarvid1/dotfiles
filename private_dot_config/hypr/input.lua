@@ -5,9 +5,15 @@
 -- See https://wiki.hypr.land/Configuring/Basics/Variables/#input
 hl.config({
   input = {
+    -- US default, switch to Latin American Spanish with Left Alt + Right Alt
+    kb_layout = "us,latam",
+
     -- CapsLock -> Escape, Shift+CapsLock -> regular CapsLock
     -- Swap Left Ctrl and Left Alt
-    kb_options = "caps:escape_shifted_capslock,shift:both_capslock_cancel,ctrl:swap_lalt_lctl",
+    -- grp:shifts_toggle = press Left Shift + Right Shift together to switch layouts
+    -- (shift:both_capslock_cancel was removed: it claims the same both-Shift chord,
+    -- turning it into a CapsLock toggle and breaking layout switching)
+    kb_options = "caps:escape_shifted_capslock,ctrl:swap_lalt_lctl,grp:shifts_toggle",
     natural_scroll = true,
     touchpad = {
       natural_scroll = true,
