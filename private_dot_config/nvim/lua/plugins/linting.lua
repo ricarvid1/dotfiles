@@ -8,6 +8,15 @@ return {
         javascriptreact = { "eslint_d" },
         typescriptreact = { "eslint_d" },
       },
+      linters = {
+        ["markdownlint-cli2"] = {
+          args = {
+            "--config",
+            vim.fn.expand("~/.config/markdownlint/.markdownlint.jsonc"),
+            "-",
+          },
+        },
+      },
     },
   },
 }
