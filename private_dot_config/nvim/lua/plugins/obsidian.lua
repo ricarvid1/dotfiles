@@ -60,15 +60,19 @@ return {
         style = "markdown",
       },
 
+      checkbox = {
+        order = { " ", "x" },
+      },
+
       callbacks = {
         enter_note = function(note)
           vim.keymap.set("n", "<leader>oh", "<cmd>Obsidian toggle_checkbox<cr>", {
             buffer = note.bufnr,
             desc = "Checkbox",
           })
-          vim.keymap.set("n", "<leader>og", "<cmd>GUI open<CR>", {
+          vim.keymap.set("n", "<leader>og", "<cmd>Obsidian open<CR>", {
             buffer = note.bufnr,
-            desc = "Open",
+            desc = "Open in Obsidian",
           })
           vim.keymap.set("n", "<leader>on", "<cmd>Obsidian new<CR>", {
             buffer = note.bufnr,
