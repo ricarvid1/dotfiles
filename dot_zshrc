@@ -267,9 +267,6 @@ alias pxt="pixi run test"
 alias pxc="pixi run clean"
 alias pxbc="pixi run build-caphe"
 
-# opencode
-export PATH=$HOME/.opencode/bin:$PATH
-
 [[ -f "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
 
 
