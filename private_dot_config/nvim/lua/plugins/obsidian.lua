@@ -64,68 +64,36 @@ return {
         order = { " ", "x" },
       },
 
+      attachments = {
+        confirm_img_paste = false,
+      },
+
       callbacks = {
         enter_note = function(note)
-          vim.keymap.set("n", "<leader>oh", "<cmd>Obsidian toggle_checkbox<cr>", {
-            buffer = note.bufnr,
-            desc = "Checkbox",
-          })
-          vim.keymap.set("n", "<leader>og", "<cmd>Obsidian open<CR>", {
-            buffer = note.bufnr,
-            desc = "Open in Obsidian",
-          })
-          vim.keymap.set("n", "<leader>on", "<cmd>Obsidian new<CR>", {
-            buffer = note.bufnr,
-            desc = "New",
-          })
-          vim.keymap.set("n", "<leader>os", "<cmd>Obsidian quick_switch<CR>", {
-            buffer = note.bufnr,
-            desc = "Switch notes",
-          })
-          vim.keymap.set("n", "<leader>ob", "<cmd>Obsidian backlinks<CR>", {
-            buffer = note.bufnr,
-            desc = "Backlinks to current",
-          })
-          vim.keymap.set("n", "<leader>ot", "<cmd>Obsidian tags<CR>", {
-            buffer = note.bufnr,
-            desc = "Tags",
-          })
-          vim.keymap.set("n", "<leader>ol", "<cmd>Obsidian links<CR>", {
-            buffer = note.bufnr,
-            desc = "Links",
-          })
-          vim.keymap.set("n", "<leader>ox", "<cmd>Obsidian extract_note<CR>", {
-            buffer = note.bufnr,
-            desc = "Extract",
-          })
-          vim.keymap.set("n", "<leader>ow", "<cmd>Obsidian workspace<CR>", {
-            buffer = note.bufnr,
-            desc = "Workspace switch",
-          })
-          vim.keymap.set("n", "<leader>oi", "<cmd>Obsidian paste_img<CR>", {
-            buffer = note.bufnr,
-            desc = "Img paste",
-          })
-          vim.keymap.set("n", "<leader>or", "<cmd>Obsidian rename<CR>", {
-            buffer = note.bufnr,
-            desc = "Rename",
-          })
-          vim.keymap.set("n", "<leader>oe", "<cmd>Obsidian template<CR>", {
-            buffer = note.bufnr,
-            desc = "Insert template",
-          })
-          vim.keymap.set("n", "<leader>om", "<cmd>Obsidian new_from_template<CR>", {
-            buffer = note.bufnr,
-            desc = "New from template",
-          })
-          vim.keymap.set("n", "<leader>oc", "<cmd>Obsidian toc<CR>", {
-            buffer = note.bufnr,
-            desc = "TOC",
-          })
-          vim.keymap.set("n", "<leader>of", "<cmd>Obsidian search<CR>", {
-            buffer = note.bufnr,
-            desc = "Find",
-          })
+          local map = function(mode, lhs, rhs, desc)
+            vim.keymap.set(mode, lhs, rhs, { buffer = note.bufnr, desc = desc })
+          end
+
+          -- Navigation and search
+          map("n", "<leader>os", "<cmd>Obsidian quick_switch<CR>", "Switch notes")
+          map("n", "<leader>of", "<cmd>Obsidian search<CR>", "Find notes")
+          map("n", "<leader>og", "<cmd>Obsidian open<CR>", "Open in Obsidian")
+          map("n", "<leader>ow", "<cmd>Obsidian workspace<CR>", "Workspace switch")
+
+          -- Note creation and daily notes
+          map("n", "<leader>on", "<cmd>Obsidian new<CR>", "New note")
+          map("n", "<leader>od", "<cmd>Obsidian today<CR>", "Daily note (today)")
+          map("n", "<leader>oe", "<cmd>Obsidian template<CR>", "Insert template")
+          map("n", "<leader>om", "<cmd>Obsidian new_from_template<CR>", "New from template")
+
+          -- Tags and links
+          map("n", "<leader>ot", "<cmd>Obsidian tags<CR>", "Tags")
+          map("n", "<leader>ol", "<cmd>Obsidian links<CR>", "Links in current note")
+          map("v", "<leader>ol", "<cmd>Obsidian link<CR>", "Link selection")
+          map("v", "<leader>ox", "<cmd>Obsidian extract_note<CR>", "Extract to note")
+
+          -- Attachments
+          map("n", "<leader>oi", "<cmd>Obsidian paste_img<CR>", "Paste image")
         end,
       },
       ui = {
