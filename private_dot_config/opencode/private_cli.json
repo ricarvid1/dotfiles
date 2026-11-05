@@ -5,5 +5,8 @@
   },
   "keybinds": {
     "session.fork": "<leader>f"
+  },
+  "theme": {
+    "name": "system"
   }
 }
