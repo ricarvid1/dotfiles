@@ -1,8 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-OPENCODE_BIN="${OPENCODE_BIN:-$HOME/.local/bin/opencode}"
 OPENCODE_MODEL="${OPENCODE_MODEL:-google/gemini-3.8-flash}"
+
+# opencode is installed through mise, so resolve it from PATH or the mise shim
+# instead of assuming a fixed location. Keeps working if it moves again.
+OPENCODE_BIN="${OPENCODE_BIN:-}"
+if [ -z "$OPENCODE_BIN" ]; then
+    for candidate in \
+        "$(command -v opencode 2>/dev/null || true)" \
+        "$HOME/.local/share/mise/shims/opencode" \
+        "$HOME/.local/bin/opencode" \
+        "$HOME/.opencode/bin/opencode"; do
+        if [ -n "$candidate" ] && [ -x "$candidate" ]; then
+            OPENCODE_BIN="$candidate"
+            break
+        fi
+    done
+fi
 BRANCH="${CHEZMOI_AUTOCOMMIT_BRANCH:-main}"
 
 export PATH="$HOME/.opencode/bin:$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
@@ -50,8 +65,8 @@ for marker in index.lock rebase-merge rebase-apply MERGE_HEAD; do
 done
 
 if [ ! -x "$OPENCODE_BIN" ]; then
-    log "ERROR: opencode binary not found at $OPENCODE_BIN"
-    notify_failure "opencode binary not found at $OPENCODE_BIN"
+    log "ERROR: opencode binary not found (PATH or mise shim: ${OPENCODE_BIN:-unresolved})"
+    notify_failure "opencode binary not found (${OPENCODE_BIN:-PATH and mise shim unresolved})"
     exit 1
 fi
 
