@@ -42,6 +42,11 @@ return {
       legacy_commands = false,
       -- Workspace
       workspaces = get_vaults(),
+      notes_subdir = "notes",
+      -- Cache configuration (enables alias and title indexing for quick_switch)
+      cache = {
+        enabled = true,
+      },
       -- Template configuration
       templates = {
         folder = "templates",
