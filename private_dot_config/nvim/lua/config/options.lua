@@ -12,6 +12,7 @@ vim.filetype.add({
     spc = "spice",
     spi = "spice",
     spice = "spice",
+    lib = "spice",
     scs = "spectre",
     cdl = "cdl",
   },
